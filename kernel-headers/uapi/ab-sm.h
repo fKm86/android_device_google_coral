@@ -41,25 +41,27 @@
 #define AB_SM_UPDATE_FSYS_STATE_PROPERTIES _IOW(AB_SM_IOCTL_MAGIC, 18, struct new_block_props *)
 #define AB_SM_UPDATE_AON_STATE_PROPERTIES _IOW(AB_SM_IOCTL_MAGIC, 19, struct new_block_props *)
 #define AB_SM_GET_EL2_MODE _IOR(AB_SM_IOCTL_MAGIC, 20, int *)
+#define AB_SM_MAPPED_ASYNC_NOTIFY _IOR(AB_SM_IOCTL_MAGIC, 21, int *)
+#define AB_SM_MAPPED_SET_STATE _IOW(AB_SM_IOCTL_MAGIC, 22, int)
+#define AB_SM_MAPPED_GET_STATE _IOR(AB_SM_IOCTL_MAGIC, 23, int *)
 #define AB_CHIP_ID_UNKNOWN - 1
 #define AB_CHIP_ID_A0 0
 #define AB_CHIP_ID_B0 1
 #define UAPI_BLK_(num,pmu,rail,v,clk,freq,pwr,used,tiles,dr) { UAPI_BLOCK_STATE_ ##num, (enum uapi_pmu_state) pmu, uapi_ ##rail, UAPI_VOLTAGE_ ##v, uapi_ ##clk, (__u64) (1000000. * freq), pwr, used, tiles, dr, }
+#define AB_SM_UAPI_NUM_BLOCK_STATES 12
 enum uapi_block_state {
-  UAPI_BLOCK_STATE_0_0 = 0,
-  UAPI_BLOCK_STATE_0_1,
-  UAPI_BLOCK_STATE_0_2,
-  UAPI_BLOCK_STATE_0_3,
-  UAPI_BLOCK_STATE_0_4,
-  UAPI_BLOCK_STATE_0_5,
-  UAPI_BLOCK_STATE_0_6,
-  UAPI_BLOCK_STATE_1_0 = 10,
-  UAPI_BLOCK_STATE_1_1,
-  UAPI_BLOCK_STATE_1_2,
-  UAPI_BLOCK_STATE_2_0 = 20,
-  UAPI_BLOCK_STATE_2_1,
-  UAPI_BLOCK_STATE_3_0 = 30,
-  UAPI_NUM_BLOCK_STATES,
+  UAPI_BLOCK_STATE_0 = 0,
+  UAPI_BLOCK_STATE_100 = 100,
+  UAPI_BLOCK_STATE_101,
+  UAPI_BLOCK_STATE_200 = 200,
+  UAPI_BLOCK_STATE_201,
+  UAPI_BLOCK_STATE_202,
+  UAPI_BLOCK_STATE_300 = 300,
+  UAPI_BLOCK_STATE_301,
+  UAPI_BLOCK_STATE_302,
+  UAPI_BLOCK_STATE_303,
+  UAPI_BLOCK_STATE_304,
+  UAPI_BLOCK_STATE_305,
 };
 enum uapi_pmu_state {
   UAPI_PMU_STATE_ON = 0,
@@ -90,7 +92,7 @@ struct uapi_block_properties {
   __u32 data_rate;
 };
 struct new_block_props {
-  struct uapi_block_properties table[UAPI_NUM_BLOCK_STATES];
+  struct uapi_block_properties table[AB_SM_UAPI_NUM_BLOCK_STATES];
 };
 #endif
 
