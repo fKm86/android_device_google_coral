@@ -16,15 +16,11 @@
  ***
  ****************************************************************************
  ****************************************************************************/
-#ifndef _LINUX_FACEAUTH_H
-#define _LINUX_FACEAUTH_H
+#ifndef _UAPI_LINUX_FACEAUTH_H
+#define _UAPI_LINUX_FACEAUTH_H
 #include <linux/types.h>
 #include <linux/ioctl.h>
 #include <linux/time.h>
-#define FACEAUTH_OP_ERASE 0
-#define FACEAUTH_OP_ENROLL 1
-#define FACEAUTH_OP_VALIDATE 2
-#define FACEAUTH_OP_ENROLL_COMPLETE 3
 #define FACEAUTH_RESULT_SUCCESS 0
 #define FACEAUTH_RESULT_FAILURE 1
 #define FACEAUTH_ERROR_NO_ERROR 0
@@ -32,6 +28,9 @@
 #define FACEAUTH_DEBUG_REGISTER_COUNT 24
 #define FACEAUTH_BUFFER_TAG_LENGTH 16
 #define FACEAUTH_BUFFER_LIST_LENGTH 16
+#define DISABLE_GAZE (1ULL << 0)
+#define DISABLE_MULTI_ANGLE_ENROLLMENT (1ULL << 1)
+#define SECURE_CAMERA_DATA (1ULL << 2)
 struct faceauth_init_data {
   __u64 features;
 } __attribute__((packed));
@@ -45,13 +44,13 @@ struct faceauth_start_data {
   __u64 calibration_fd;
   __s16 cache_flush_indexes[FACEAUTH_MAX_CACHE_FLUSH_SIZE];
   __u32 cache_flush_size;
-  __u8 * image_dot_left;
+  __u8 __user * image_dot_left;
   __u32 image_dot_left_size;
-  __u8 * image_dot_right;
+  __u8 __user * image_dot_right;
   __u32 image_dot_right_size;
-  __u8 * image_flood;
+  __u8 __user * image_flood;
   __u32 image_flood_size;
-  void * calibration;
+  void __user * calibration;
   __u32 calibration_size;
   __u8 result;
   __u32 bin_bitmap;
@@ -62,8 +61,8 @@ struct faceauth_start_data {
 struct faceauth_debug_data {
   __u64 buffer_fd;
   union {
-    __u8 * debug_buffer;
-    __u8 * print_buffer;
+    __u8 __user * debug_buffer;
+    __u8 __user * print_buffer;
   };
   union {
     __u32 debug_buffer_size;

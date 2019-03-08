@@ -13,18 +13,12 @@
  * GNU General Public License for more details.
  */
 
-#ifndef _LINUX_FACEAUTH_H
-#define _LINUX_FACEAUTH_H
+#ifndef _UAPI_LINUX_FACEAUTH_H
+#define _UAPI_LINUX_FACEAUTH_H
 
 #include <linux/types.h>
 #include <linux/ioctl.h>
 #include <linux/time.h>
-
-/* Keep it in sync with faceauth firmware */
-#define FACEAUTH_OP_ERASE 0
-#define FACEAUTH_OP_ENROLL 1
-#define FACEAUTH_OP_VALIDATE 2
-#define FACEAUTH_OP_ENROLL_COMPLETE 3
 
 /* Keep it in sync with faceauth firmware */
 #define FACEAUTH_RESULT_SUCCESS 0
@@ -37,8 +31,13 @@
 #define FACEAUTH_BUFFER_TAG_LENGTH 16
 #define FACEAUTH_BUFFER_LIST_LENGTH 16
 
+/* faceauth features */
+#define DISABLE_GAZE (1ULL << 0)
+#define DISABLE_MULTI_ANGLE_ENROLLMENT (1ULL << 1)
+#define SECURE_CAMERA_DATA (1ULL << 2)
+
 struct faceauth_init_data {
-  __u64 features;
+	__u64 features;
 } __attribute__((packed));
 
 #define FACEAUTH_MAX_CACHE_FLUSH_SIZE 20
@@ -61,13 +60,13 @@ struct faceauth_start_data {
 	__u32 cache_flush_size;
 
 	/* TODO(b/123892068): remove these user-buffer fields */
-	__u8 *image_dot_left;
+	__u8 __user *image_dot_left;
 	__u32 image_dot_left_size;
-	__u8 *image_dot_right;
+	__u8 __user *image_dot_right;
 	__u32 image_dot_right_size;
-	__u8 *image_flood;
+	__u8 __user *image_flood;
 	__u32 image_flood_size;
-	void *calibration;
+	void __user *calibration;
 	__u32 calibration_size;
 
 	/* Output parameters */
@@ -85,8 +84,8 @@ struct faceauth_debug_data {
 
 	/* TODO(b/123892068): remove these user-buffer fields */
 	union {
-		__u8 *debug_buffer;
-		__u8 *print_buffer;
+		__u8 __user *debug_buffer;
+		__u8 __user *print_buffer;
 	};
 	union {
 		__u32 debug_buffer_size;
@@ -194,4 +193,4 @@ struct faceauth_debug_entry {
 
 #define FACEAUTH_DEBUG_DATA_PAYLOAD_SIZE (2 * 1024 * 1024)
 
-#endif /* _LINUX_FACEAUTH_H */
+#endif /* _UAPI_LINUX_FACEAUTH_H */
