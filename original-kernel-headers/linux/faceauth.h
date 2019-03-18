@@ -13,8 +13,8 @@
  * GNU General Public License for more details.
  */
 
-#ifndef _UAPI_LINUX_FACEAUTH_H
-#define _UAPI_LINUX_FACEAUTH_H
+#ifndef _LINUX_FACEAUTH_H
+#define _LINUX_FACEAUTH_H
 
 #include <linux/types.h>
 #include <linux/ioctl.h>
@@ -55,13 +55,13 @@ struct faceauth_start_data {
 	__u32 cache_flush_size;
 
 	/* TODO(b/123892068): remove these user-buffer fields */
-	__u8 __user *image_dot_left;
+	__u8 *image_dot_left;
 	__u32 image_dot_left_size;
-	__u8 __user *image_dot_right;
+	__u8 *image_dot_right;
 	__u32 image_dot_right_size;
-	__u8 __user *image_flood;
+	__u8 *image_flood;
 	__u32 image_flood_size;
-	void __user *calibration;
+	void *calibration;
 	__u32 calibration_size;
 
 	/* Output parameters */
@@ -70,6 +70,15 @@ struct faceauth_start_data {
 	__u32 angles;
 	__s32 error_code; /* ab-faceauth error code */
 	__u32 fw_version; /* ab-faceauth firmware version */
+
+	__u8  *citadel_token;
+	__u32 citadel_token_size;
+
+	__u32 citadel_lockout_event;
+	__u32 citadel_input;
+	__u32 citadel_output1;
+	__u32 citadel_output2;
+
 } __attribute__((packed));
 
 /* This struct contains a user supplied buffer that is written by kernel */
@@ -79,8 +88,8 @@ struct faceauth_debug_data {
 
 	/* TODO(b/123892068): remove these user-buffer fields */
 	union {
-		__u8 __user *debug_buffer;
-		__u8 __user *print_buffer;
+		__u8 *debug_buffer;
+		__u8 *print_buffer;
 	};
 	union {
 		__u32 debug_buffer_size;
@@ -188,4 +197,4 @@ struct faceauth_debug_entry {
 
 #define FACEAUTH_DEBUG_DATA_PAYLOAD_SIZE (2 * 1024 * 1024)
 
-#endif /* _UAPI_LINUX_FACEAUTH_H */
+#endif /* _LINUX_FACEAUTH_H */
