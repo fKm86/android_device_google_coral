@@ -19,19 +19,20 @@
 #ifndef IPA_QMI_SERVICE_V01_H
 #define IPA_QMI_SERVICE_V01_H
 #include <linux/types.h>
-#define QMI_IPA_IPFLTR_NUM_IHL_RANGE_16_EQNS_V01 2
-#define QMI_IPA_IPFLTR_NUM_MEQ_32_EQNS_V01 2
-#define QMI_IPA_IPFLTR_NUM_IHL_MEQ_32_EQNS_V01 2
-#define QMI_IPA_IPFLTR_NUM_MEQ_128_EQNS_V01 2
-#define QMI_IPA_MAX_FILTERS_V01 64
-#define QMI_IPA_MAX_FILTERS_EX_V01 128
-#define QMI_IPA_MAX_PIPES_V01 20
-#define QMI_IPA_MAX_APN_V01 8
-#define QMI_IPA_MAX_PER_CLIENTS_V01 64
 #define QMI_IPA_REMOTE_MHI_CHANNELS_NUM_MAX_V01 6
-#define QMI_IPA_REMOTE_MHI_MEMORY_MAPPING_NUM_MAX_V01 6
+#define QMI_IPA_MAX_FILTERS_EX_V01 128
+#define QMI_IPA_IPFLTR_NUM_IHL_RANGE_16_EQNS_V01 2
+#define QMI_IPA_MAX_FILTERS_V01 64
+#define QMI_IPA_IPFLTR_NUM_MEQ_128_EQNS_V01 2
+#define QMI_IPA_ENDP_DESC_NUM_MAX_V01 31
+#define QMI_IPA_MAX_APN_V01 8
 #define QMI_IPA_MAX_CLIENT_DST_PIPES_V01 8
+#define QMI_IPA_IPFLTR_NUM_IHL_MEQ_32_EQNS_V01 2
 #define QMI_IPA_MAX_UL_FIREWALL_RULES_V01 64
+#define QMI_IPA_REMOTE_MHI_MEMORY_MAPPING_NUM_MAX_V01 6
+#define QMI_IPA_IPFLTR_NUM_MEQ_32_EQNS_V01 2
+#define QMI_IPA_MAX_PIPES_V01 20
+#define QMI_IPA_MAX_PER_CLIENTS_V01 64
 #define IPA_QMI_SUPPORTS_STATS
 #define IPA_INT_MAX ((int) (~0U >> 1))
 #define IPA_INT_MIN (- IPA_INT_MAX - 1)
@@ -55,8 +56,8 @@ enum ipa_qmi_error_type_v01 {
   IPA_QMI_ERROR_TYPE_MAX_ENUM_VAL_V01 = IPA_INT_MAX,
 };
 struct ipa_qmi_response_type_v01 {
-  enum ipa_qmi_result_type_v01 result;
-  enum ipa_qmi_error_type_v01 error;
+  uint16_t result;
+  uint16_t error;
 };
 enum ipa_platform_type_enum_v01 {
   IPA_PLATFORM_TYPE_ENUM_MIN_ENUM_VAL_V01 = - 2147483647,
@@ -206,6 +207,32 @@ struct ipa_filter_rule_type_v01 {
   struct ipa_ipfltr_mask_eq_32_type_v01 metadata_meq32;
   uint8_t ipv4_frag_eq_present;
 };
+struct ipa_filter_rule_req2_type_v01 {
+  uint16_t rule_eq_bitmap;
+  uint8_t pure_ack_eq_present;
+  uint8_t pure_ack_eq;
+  uint8_t protocol_eq_present;
+  uint8_t protocol_eq;
+  uint8_t num_ihl_offset_range_16;
+  struct ipa_ipfltr_range_eq_16_type_v01 ihl_offset_range_16[QMI_IPA_IPFLTR_NUM_IHL_RANGE_16_EQNS_V01];
+  uint8_t num_offset_meq_32;
+  struct ipa_ipfltr_mask_eq_32_type_v01 offset_meq_32[QMI_IPA_IPFLTR_NUM_MEQ_32_EQNS_V01];
+  uint8_t tc_eq_present;
+  uint8_t tc_eq;
+  uint8_t flow_eq_present;
+  uint32_t flow_eq;
+  uint8_t ihl_offset_eq_16_present;
+  struct ipa_ipfltr_eq_16_type_v01 ihl_offset_eq_16;
+  uint8_t ihl_offset_eq_32_present;
+  struct ipa_ipfltr_eq_32_type_v01 ihl_offset_eq_32;
+  uint8_t num_ihl_offset_meq_32;
+  struct ipa_ipfltr_mask_eq_32_type_v01 ihl_offset_meq_32[QMI_IPA_IPFLTR_NUM_IHL_MEQ_32_EQNS_V01];
+  uint8_t num_offset_meq_128;
+  struct ipa_ipfltr_mask_eq_128_type_v01 offset_meq_128[QMI_IPA_IPFLTR_NUM_MEQ_128_EQNS_V01];
+  uint8_t metadata_meq32_present;
+  struct ipa_ipfltr_mask_eq_32_type_v01 metadata_meq32;
+  uint8_t ipv4_frag_eq_present;
+};
 enum ipa_ip_type_enum_v01 {
   IPA_IP_TYPE_ENUM_MIN_ENUM_VAL_V01 = - 2147483647,
   QMI_IPA_IP_TYPE_INVALID_V01 = 0,
@@ -244,6 +271,17 @@ struct ipa_filter_spec_ex_type_v01 {
   uint32_t rule_id;
   uint8_t is_rule_hashable;
 };
+struct ipa_filter_spec_ex2_type_v01 {
+  enum ipa_ip_type_enum_v01 ip_type;
+  struct ipa_filter_rule_req2_type_v01 filter_rule;
+  enum ipa_filter_action_enum_v01 filter_action;
+  uint8_t is_routing_table_index_valid;
+  uint32_t route_table_index;
+  uint8_t is_mux_id_valid;
+  uint32_t mux_id;
+  uint32_t rule_id;
+  uint8_t is_rule_hashable;
+};
 struct ipa_install_fltr_rule_req_msg_v01 {
   uint8_t filter_spec_list_valid;
   uint32_t filter_spec_list_len;
@@ -260,6 +298,9 @@ struct ipa_install_fltr_rule_req_msg_v01 {
   uint8_t filter_spec_ex_list_valid;
   uint32_t filter_spec_ex_list_len;
   struct ipa_filter_spec_ex_type_v01 filter_spec_ex_list[QMI_IPA_MAX_FILTERS_V01];
+  uint8_t filter_spec_ex2_list_valid;
+  uint32_t filter_spec_ex2_list_len;
+  struct ipa_filter_spec_ex2_type_v01 filter_spec_ex2_list[QMI_IPA_MAX_FILTERS_V01];
 };
 struct ipa_filter_rule_identifier_to_handle_map_v01 {
   uint32_t filter_spec_identifier;
@@ -467,6 +508,9 @@ struct ipa_install_fltr_rule_req_ex_msg_v01 {
   uint8_t xlat_filter_indices_list_valid;
   uint32_t xlat_filter_indices_list_len;
   uint32_t xlat_filter_indices_list[QMI_IPA_MAX_FILTERS_EX_V01];
+  uint8_t filter_spec_ex2_list_valid;
+  uint32_t filter_spec_ex2_list_len;
+  struct ipa_filter_spec_ex2_type_v01 filter_spec_ex2_list[QMI_IPA_MAX_FILTERS_V01];
 };
 struct ipa_install_fltr_rule_resp_ex_msg_v01 {
   struct ipa_qmi_response_type_v01 resp;
@@ -623,6 +667,111 @@ struct ipa_mhi_cleanup_resp_msg_v01 {
   struct ipa_qmi_response_type_v01 resp;
 };
 #define IPA_MHI_CLEANUP_RESP_MSG_V01_MAX_MSG_LEN 7
+enum ipa_ep_desc_type_enum_v01 {
+  IPA_EP_DESC_TYPE_ENUM_MIN_VAL_V01 = IPA_INT_MIN,
+  DATA_EP_DESC_TYPE_RESERVED_V01 = 0x00,
+  DATA_EP_DESC_TYPE_EMB_CONS_V01 = 0x01,
+  DATA_EP_DESC_TYPE_EMB_PROD_V01 = 0x02,
+  DATA_EP_DESC_TYPE_RSC_PROD_V01 = 0x03,
+  DATA_EP_DESC_TYPE_QDSS_PROD_V01 = 0x04,
+  DATA_EP_DESC_TYPE_DPL_PROD_V01 = 0x05,
+  DATA_EP_DESC_TYPE_TETH_CONS_V01 = 0x06,
+  DATA_EP_DESC_TYPE_TETH_PROD_V01 = 0x07,
+  DATA_EP_DESC_TYPE_TETH_RMNET_CONS_V01 = 0x08,
+  DATA_EP_DESC_TYPE_TETH_RMNET_PROD_V01 = 0x09,
+  IPA_EP_DESC_TYPE_ENUM_MAX_VAL_V01 = IPA_INT_MAX,
+};
+enum ipa_ic_type_enum_v01 {
+  IPA_IC_TYPE_ENUM_MIN_VAL_V01 = IPA_INT_MIN,
+  DATA_IC_TYPE_RESERVED_V01 = 0x00,
+  DATA_IC_TYPE_MHI_V01 = 0x01,
+  DATA_IC_TYPE_MHI_PRIME_V01 = 0x02,
+  DATA_IC_TYPE_USB_V01 = 0x03,
+  DATA_IC_TYPE_AP_V01 = 0x04,
+  DATA_IC_TYPE_Q6_V01 = 0x05,
+  DATA_IC_TYPE_UC_V01 = 0x06,
+  IPA_IC_TYPE_ENUM_MAX_VAL_V01 = IPA_INT_MAX,
+};
+enum ipa_ep_status_type_v01 {
+  IPA_EP_STATUS_TYPE_MIN_VAL_V01 = IPA_INT_MIN,
+  DATA_EP_STATUS_RESERVED_V01 = 0x00,
+  DATA_EP_STATUS_STATIC_V01 = 0x01,
+  DATA_EP_STATUS_CONNECTED_V01 = 0x02,
+  DATA_EP_STATUS_DISCONNECTED_V01 = 0x03,
+  IPA_EP_STATUS_TYPE_MAX_VAL_V01 = IPA_INT_MAX,
+};
+struct ipa_ep_id_type_v01 {
+  enum ipa_ic_type_enum_v01 ic_type;
+  enum ipa_ep_desc_type_enum_v01 ep_type;
+  uint32_t ep_id;
+  enum ipa_ep_status_type_v01 ep_status;
+};
+struct ipa_endp_desc_indication_msg_v01 {
+  uint8_t ep_info_valid;
+  uint32_t ep_info_len;
+  struct ipa_ep_id_type_v01 ep_info[QMI_IPA_ENDP_DESC_NUM_MAX_V01];
+  uint8_t num_eps_valid;
+  uint32_t num_eps;
+};
+#define IPA_ENDP_DESC_INDICATION_MSG_V01_MAX_MSG_LEN 507
+enum ipa_aggr_enum_type_v01 {
+  IPA_AGGR_ENUM_TYPE_MIN_VAL_V01 = IPA_INT_MIN,
+  DATA_AGGR_TYPE_RESERVED_V01 = 0x00,
+  DATA_AGGR_TYPE_QMAP_V01 = 0x01,
+  DATA_AGGR_TYPE_QMAPv5_V01 = 0x02,
+  DATA_AGGR_TYPE_INHERITED_V01 = 0x03,
+  IPA_AGGR_ENUM_TYPE_MAX_VAL_V01 = IPA_INT_MAX,
+};
+struct ipa_mhi_prime_aggr_info_type_v01 {
+  enum ipa_ic_type_enum_v01 ic_type;
+  enum ipa_ep_desc_type_enum_v01 ep_type;
+  uint32_t bytes_count;
+  uint32_t pkt_count;
+  enum ipa_aggr_enum_type_v01 aggr_type;
+};
+#define IPA_MHI_PRIME_AGGR_INFO_REQ_MSG_V01_MAX_MSG_LEN 631
+struct ipa_mhi_prime_aggr_info_req_msg_v01 {
+  uint8_t aggr_info_valid;
+  uint32_t aggr_info_len;
+  struct ipa_mhi_prime_aggr_info_type_v01 aggr_info[QMI_IPA_ENDP_DESC_NUM_MAX_V01];
+  uint8_t num_eps_valid;
+  uint32_t num_eps;
+};
+#define IPA_MHI_PRIME_AGGR_INFO_RESP_MSG_V01_MAX_MSG_LEN 7
+struct ipa_mhi_prime_aggr_info_resp_msg_v01 {
+  struct ipa_qmi_response_type_v01 resp;
+};
+struct ipa_add_offload_connection_req_msg_v01 {
+  uint8_t num_ipv4_filters_valid;
+  uint32_t num_ipv4_filters;
+  uint8_t num_ipv6_filters_valid;
+  uint32_t num_ipv6_filters;
+  uint8_t xlat_filter_indices_list_valid;
+  uint32_t xlat_filter_indices_list_len;
+  uint32_t xlat_filter_indices_list[QMI_IPA_MAX_FILTERS_V01];
+  uint8_t filter_spec_ex2_list_valid;
+  uint32_t filter_spec_ex2_list_len;
+  struct ipa_filter_spec_ex2_type_v01 filter_spec_ex2_list[QMI_IPA_MAX_FILTERS_V01];
+};
+#define IPA_ADD_OFFLOAD_CONNECTION_REQ_MSG_V01_MAX_MSG_LEN 11350
+struct ipa_add_offload_connection_resp_msg_v01 {
+  struct ipa_qmi_response_type_v01 resp;
+  uint8_t filter_handle_list_valid;
+  uint32_t filter_handle_list_len;
+  struct ipa_filter_rule_identifier_to_handle_map_v01 filter_handle_list[QMI_IPA_MAX_FILTERS_V01];
+};
+#define IPA_ADD_OFFLOAD_CONNECTION_RESP_MSG_V01_MAX_MSG_LEN 523
+struct ipa_remove_offload_connection_req_msg_v01 {
+  uint8_t filter_handle_list_valid;
+  uint32_t filter_handle_list_len;
+  struct ipa_filter_rule_identifier_to_handle_map_v01 filter_handle_list[QMI_IPA_MAX_FILTERS_V01];
+};
+#define IPA_REMOVE_OFFLOAD_CONNECTION_REQ_MSG_V01_MAX_MSG_LEN 516
+struct ipa_remove_offload_connection_resp_msg_v01 {
+  uint8_t resp_valid;
+  struct ipa_qmi_response_type_v01 resp;
+};
+#define IPA_REMOVE_OFFLOAD_CONNECTION_RESP_MSG_V01_MAX_MSG_LEN 7
 #define QMI_IPA_INDICATION_REGISTER_REQ_V01 0x0020
 #define QMI_IPA_INDICATION_REGISTER_RESP_V01 0x0020
 #define QMI_IPA_INIT_MODEM_DRIVER_REQ_V01 0x0021
@@ -669,11 +818,18 @@ struct ipa_mhi_cleanup_resp_msg_v01 {
 #define QMI_IPA_MHI_ALLOC_CHANNEL_RESP_V01 0x003D
 #define QMI_IPA_MHI_CLEANUP_REQ_V01 0x003E
 #define QMI_IPA_MHI_CLEANUP_RESP_V01 0x003E
+#define QMI_IPA_ENDP_DESC_INDICATION_V01 0x003F
+#define QMI_IPA_MHI_PRIME_AGGR_INFO_REQ_V01 0x0040
+#define QMI_IPA_MHI_PRIME_AGGR_INFO_RESP_V01 0x0040
+#define QMI_IPA_ADD_OFFLOAD_CONNECTION_REQ_V01 0x0041
+#define QMI_IPA_ADD_OFFLOAD_CONNECTION_RESP_V01 0x0041
+#define QMI_IPA_REMOVE_OFFLOAD_CONNECTION_REQ_V01 0x0042
+#define QMI_IPA_REMOVE_OFFLOAD_CONNECTION_RESP_V01 0x0042
 #define QMI_IPA_INIT_MODEM_DRIVER_REQ_MAX_MSG_LEN_V01 162
 #define QMI_IPA_INIT_MODEM_DRIVER_RESP_MAX_MSG_LEN_V01 25
-#define QMI_IPA_INDICATION_REGISTER_REQ_MAX_MSG_LEN_V01 8
+#define QMI_IPA_INDICATION_REGISTER_REQ_MAX_MSG_LEN_V01 12
 #define QMI_IPA_INDICATION_REGISTER_RESP_MAX_MSG_LEN_V01 7
-#define QMI_IPA_INSTALL_FILTER_RULE_REQ_MAX_MSG_LEN_V01 22369
+#define QMI_IPA_INSTALL_FILTER_RULE_REQ_MAX_MSG_LEN_V01 33445
 #define QMI_IPA_INSTALL_FILTER_RULE_RESP_MAX_MSG_LEN_V01 783
 #define QMI_IPA_FILTER_INSTALLED_NOTIF_REQ_MAX_MSG_LEN_V01 870
 #define QMI_IPA_FILTER_INSTALLED_NOTIF_RESP_MAX_MSG_LEN_V01 7
@@ -699,7 +855,7 @@ struct ipa_mhi_cleanup_resp_msg_v01 {
 #define QMI_IPA_STOP_DATA_USAGE_QUOTA_RESP_MAX_MSG_LEN_V01 7
 #define QMI_IPA_INIT_MODEM_DRIVER_CMPLT_REQ_MAX_MSG_LEN_V01 4
 #define QMI_IPA_INIT_MODEM_DRIVER_CMPLT_RESP_MAX_MSG_LEN_V01 7
-#define QMI_IPA_INSTALL_FILTER_RULE_EX_REQ_MAX_MSG_LEN_V01 22685
+#define QMI_IPA_INSTALL_FILTER_RULE_EX_REQ_MAX_MSG_LEN_V01 33761
 #define QMI_IPA_INSTALL_FILTER_RULE_EX_RESP_MAX_MSG_LEN_V01 523
 #define QMI_IPA_ENABLE_PER_CLIENT_STATS_REQ_MAX_MSG_LEN_V01 4
 #define QMI_IPA_ENABLE_PER_CLIENT_STATS_RESP_MAX_MSG_LEN_V01 7
