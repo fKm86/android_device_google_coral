@@ -35,6 +35,10 @@
  * Parameter int:
  *	Pass new state value to set
  * On success will return 0, otherwise will return error < 0.
+ * Note: State changes are not allowed after calling AB_SM_ENTER_EL2
+ *     until subsequently calling AB_SM_EXIT EL2.
+ *     All calls to AB_SM_SET_STATE will fail with -ENODEV
+ *     during that time.
  */
 #define AB_SM_SET_STATE		_IOW(AB_SM_IOCTL_MAGIC, 1, int)
 
@@ -184,6 +188,10 @@
  * Parameter int:
  *	Pass mapped state value to set
  * On success will return 0, otherwise will return error < 0.
+ * Note: State changes are not allowed after calling AB_SM_ENTER_EL2
+ *     until subsequently calling AB_SM_EXIT EL2.
+ *     All calls to AB_SM_SET_STATE will fail with -ENODEV
+ *     during that time.
  */
 #define AB_SM_MAPPED_SET_STATE		_IOW(AB_SM_IOCTL_MAGIC, 22, int)
 
@@ -258,7 +266,7 @@ enum uapi_logic_voltage {
 struct uapi_block_properties {
 	enum uapi_block_state id;
 	enum uapi_pmu_state pmu;
-	enum uapi_state voltage_rail_status;
+	enum uapi_state rail_en;
 	enum uapi_logic_voltage logic_voltage;
 	enum uapi_state clk_status;
 	__u64 clk_frequency;
