@@ -103,4 +103,3 @@ typedef enum _faceauth_ack_messages {
   STATUS_INTMAX = 0xffffffff
 } FaceAckMessages;
 #endif
-

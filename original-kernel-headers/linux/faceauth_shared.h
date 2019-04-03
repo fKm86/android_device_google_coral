@@ -77,7 +77,6 @@
 
 /* Any change to the WorkloadStatus should also be accompanied by a change to
  * WORKLOAD_STATUS_STRINGS in defines.h.
- *
  */
 typedef enum _workload_status {
 	WORKLOAD_STATUS_NO_STATUS = 0,
@@ -86,7 +85,7 @@ typedef enum _workload_status {
 	/* Soft errors */
 	/* Reject (post)FSSD code when no face is found */
 	WORKLOAD_STATUS_REJECT_NO_FACE,
-	//Reject (post)FDDS code when number of faces is more than capacity
+	/* Reject (post)FDDS code when number of faces is more than capacity */
 	WORKLOAD_STATUS_REJECT_MAX_FACE_CAPACITY,
 	/* Reject Gazenet for no camera attention, optionally can be ignored */
 	WORKLOAD_STATUS_REJECT_NO_ATTENTION,

@@ -50,15 +50,15 @@ struct faceauth_start_data {
   void * calibration;
   __u32 calibration_size;
   __u8 result;
-  __u32 bin_bitmap;
+  __u32 lockout_event;
   __u32 angles;
   __s32 error_code;
   __u32 ab_exception_number;
   __u32 fw_version;
   __u8 * citadel_token;
   __u32 citadel_token_size;
-  __u32 citadel_lockout_event;
   __u32 citadel_input;
+  __u32 citadel_input2;
   __u32 citadel_output1;
   __u32 citadel_output2;
 } __attribute__((packed));
@@ -147,4 +147,3 @@ struct faceauth_debug_entry {
 #define FACEAUTH_GET_DEBUG_DATA_FROM_AB_DRAM (2)
 #define FACEAUTH_DEBUG_DATA_PAYLOAD_SIZE (2 * 1024 * 1024)
 #endif
-
