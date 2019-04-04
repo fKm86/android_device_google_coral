@@ -64,4 +64,3 @@ struct cam_jpeg_config_inout_param_info {
   int32_t output_size;
 };
 #endif
-

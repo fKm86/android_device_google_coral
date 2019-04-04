@@ -16,8 +16,8 @@
  ***
  ****************************************************************************
  ****************************************************************************/
-#ifndef _UAPI_MSM_AUDIO_AMRNB_H
-#define _UAPI_MSM_AUDIO_AMRNB_H
+#ifndef _MSM_AUDIO_AMRNB_H
+#define _MSM_AUDIO_AMRNB_H
 #include <linux/msm_audio.h>
 #define AUDIO_GET_AMRNB_ENC_CONFIG _IOW(AUDIO_IOCTL_MAGIC, (AUDIO_MAX_COMMON_IOCTL_NUM + 0), unsigned int)
 #define AUDIO_SET_AMRNB_ENC_CONFIG _IOR(AUDIO_IOCTL_MAGIC, (AUDIO_MAX_COMMON_IOCTL_NUM + 1), unsigned int)
@@ -38,4 +38,3 @@ struct msm_audio_amrnb_enc_config_v2 {
   uint32_t frame_format;
 };
 #endif
-

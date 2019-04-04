@@ -258,7 +258,7 @@ struct pbe_config_t {
   int32_t p1BandPassCoeffs[5 * 3];
   int32_t p1BassShelfCoeffs[5];
   int32_t p1TrebleShelfCoeffs[5];
-} __packed;
+} __attribute__((packed));
 struct pbe_params {
   uint32_t device;
   uint32_t enable_flag;
@@ -285,4 +285,3 @@ struct msm_nt_eff_all_config {
   struct soft_volume_params topo_switch_vol;
 };
 #endif
-

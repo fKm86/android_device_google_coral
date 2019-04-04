@@ -291,4 +291,3 @@ struct msm_hdmi_mode_timing_info {
 } while(0)
 #define MSM_HDMI_MODES_GET_DETAILS(mode,MODE) do { struct msm_hdmi_mode_timing_info info = MODE ##_TIMING; * mode = info; } while(0)
 #endif
-

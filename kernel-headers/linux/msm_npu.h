@@ -145,4 +145,3 @@ struct msm_npu_event {
   uint32_t reserved[4];
 };
 #endif
-

@@ -64,4 +64,3 @@ struct msm_vidc_arg {
   unsigned int reserved[12];
 };
 #endif
-

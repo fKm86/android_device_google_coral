@@ -310,4 +310,3 @@ struct cam_cmd_mem_regions {
   struct cam_cmd_mem_region_info map_info_array[1];
 };
 #endif
-

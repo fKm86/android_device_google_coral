@@ -16,8 +16,8 @@
  ***
  ****************************************************************************
  ****************************************************************************/
-#ifndef _UAPI_MSM_AUDIO_APE_H
-#define _UAPI_MSM_AUDIO_APE_H
+#ifndef _MSM_AUDIO_APE_H
+#define _MSM_AUDIO_APE_H
 #define AUDIO_GET_APE_CONFIG _IOR(AUDIO_IOCTL_MAGIC, (AUDIO_MAX_COMMON_IOCTL_NUM + 0), struct msm_audio_ape_config)
 #define AUDIO_SET_APE_CONFIG _IOW(AUDIO_IOCTL_MAGIC, (AUDIO_MAX_COMMON_IOCTL_NUM + 1), struct msm_audio_ape_config)
 struct msm_audio_ape_config {
@@ -33,4 +33,3 @@ struct msm_audio_ape_config {
   uint32_t seekTablePresent;
 };
 #endif
-

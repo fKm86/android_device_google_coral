@@ -70,4 +70,3 @@ struct cam_fd_acquire_dev_info {
   uint32_t reserved[13];
 };
 #endif
-

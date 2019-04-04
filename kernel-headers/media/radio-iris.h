@@ -669,4 +669,3 @@ struct hci_fm_set_spur_table_req {
 #define AUDIO_CTRL_INTR (1 << 2)
 #define AF_JUMP_ENABLE (1 << 4)
 #endif
-

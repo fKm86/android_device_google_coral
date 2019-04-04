@@ -57,4 +57,3 @@ struct cam_lrme_acquire_args {
   struct cam_lrme_soc_info lrme_soc_info;
 };
 #endif
-

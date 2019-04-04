@@ -57,4 +57,3 @@ struct HDCP_V2V1_MSG_TOPOLOGY {
   uint32_t max_dev_exceeded;
 };
 #endif
-

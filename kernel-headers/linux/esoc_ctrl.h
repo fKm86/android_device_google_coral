@@ -82,4 +82,3 @@ enum esoc_req {
   ESOC_REQ_CRASH_SHUTDOWN,
 };
 #endif
-

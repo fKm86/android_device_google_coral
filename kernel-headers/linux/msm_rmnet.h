@@ -134,4 +134,3 @@ struct qmi_qos_hdr8_s {
   uint8_t reserved[2];
 } __attribute((__packed__));
 #endif
-

@@ -70,4 +70,3 @@ struct mdp_rotation_request {
   uint32_t reserved[6];
 };
 #endif
-

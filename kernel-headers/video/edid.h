@@ -22,4 +22,3 @@ struct edid_info {
   unsigned char dummy[128];
 };
 #endif
-

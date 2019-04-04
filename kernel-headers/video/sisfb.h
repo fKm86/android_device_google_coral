@@ -129,4 +129,3 @@ struct sis_memreq {
   __u32 size;
 };
 #endif
-

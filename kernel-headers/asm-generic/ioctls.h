@@ -111,4 +111,3 @@
 #define TIOCPKT_IOCTL 64
 #define TIOCSER_TEMT 0x01
 #endif
-

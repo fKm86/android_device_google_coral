@@ -137,4 +137,3 @@ struct wan_ioctl_query_per_client_stats {
 #define WAN_IOC_SEND_LAN_CLIENT_MSG _IOWR(WAN_IOC_MAGIC, WAN_IOCTL_SEND_LAN_CLIENT_MSG, struct wan_ioctl_send_lan_client_msg *)
 #define WAN_IOC_CLEAR_LAN_CLIENT_INFO _IOWR(WAN_IOC_MAGIC, WAN_IOCTL_CLEAR_LAN_CLIENT_INFO, struct wan_ioctl_lan_client_info *)
 #endif
-

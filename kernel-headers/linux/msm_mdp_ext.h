@@ -229,4 +229,3 @@ struct mdp_set_cfg {
   uint64_t payload;
 };
 #endif
-

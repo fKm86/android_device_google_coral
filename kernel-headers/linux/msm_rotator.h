@@ -63,4 +63,3 @@ struct msm_rotator_platform_data {
   char rot_iommu_split_domain;
 };
 #endif
-

@@ -82,4 +82,3 @@ struct spcom_user_send_modified_command {
   char buf[0];
 } __attribute__((packed));
 #endif
-

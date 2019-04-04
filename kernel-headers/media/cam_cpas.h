@@ -28,4 +28,3 @@ struct cam_cpas_query_cap {
   struct cam_hw_version cpas_version;
 };
 #endif
-

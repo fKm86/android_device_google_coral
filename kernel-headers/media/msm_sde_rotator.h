@@ -100,4 +100,3 @@ struct msm_sde_rotator_comp_ratio {
 #define V4L2_CID_SDE_ROTATOR_SECURE (V4L2_CID_USER_BASE + 0x1000)
 #define V4L2_CID_SDE_ROTATOR_SECURE_CAMERA (V4L2_CID_USER_BASE + 0x2000)
 #endif
-

@@ -46,4 +46,3 @@ struct wdsp_glink_ch_cfg {
   __u32 intents_size[0];
 };
 #endif
-

@@ -308,4 +308,3 @@ struct drm_msm_ad4_manual_str_cfg {
   __u32 out_str;
 };
 #endif
-

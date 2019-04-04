@@ -16,8 +16,8 @@
  ***
  ****************************************************************************
  ****************************************************************************/
-#ifndef _UAPI_MSM_AUDIO_VOICEMEMO_H
-#define _UAPI_MSM_AUDIO_VOICEMEMO_H
+#ifndef _MSM_AUDIO_VOICEMEMO_H
+#define _MSM_AUDIO_VOICEMEMO_H
 #include <linux/msm_audio.h>
 #define AUDIO_GET_VOICEMEMO_CONFIG _IOW(AUDIO_IOCTL_MAGIC, (AUDIO_MAX_COMMON_IOCTL_NUM + 0), unsigned int)
 #define AUDIO_SET_VOICEMEMO_CONFIG _IOR(AUDIO_IOCTL_MAGIC, (AUDIO_MAX_COMMON_IOCTL_NUM + 1), unsigned int)
@@ -68,4 +68,3 @@ struct msm_audio_voicememo_config {
   uint32_t data_req_ms;
 };
 #endif
-

@@ -772,4 +772,3 @@ struct kgsl_gpu_sparse_command {
 };
 #define IOCTL_KGSL_GPU_SPARSE_COMMAND _IOWR(KGSL_IOC_TYPE, 0x55, struct kgsl_gpu_sparse_command)
 #endif
-

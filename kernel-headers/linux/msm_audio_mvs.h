@@ -16,8 +16,8 @@
  ***
  ****************************************************************************
  ****************************************************************************/
-#ifndef _UAPI_MSM_AUDIO_MVS_H
-#define _UAPI_MSM_AUDIO_MVS_H
+#ifndef _MSM_AUDIO_MVS_H
+#define _MSM_AUDIO_MVS_H
 #include <linux/msm_audio.h>
 #define AUDIO_GET_MVS_CONFIG _IOW(AUDIO_IOCTL_MAGIC, (AUDIO_MAX_COMMON_IOCTL_NUM + 0), unsigned int)
 #define AUDIO_SET_MVS_CONFIG _IOR(AUDIO_IOCTL_MAGIC, (AUDIO_MAX_COMMON_IOCTL_NUM + 1), unsigned int)
@@ -143,4 +143,3 @@ struct q5v2_msm_audio_mvs_frame {
   uint8_t voc_pkt[Q5V2_MVS_MAX_VOC_PKT_SIZE];
 };
 #endif
-

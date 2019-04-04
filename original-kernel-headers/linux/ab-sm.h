@@ -49,7 +49,11 @@
  */
 #define AB_SM_GET_STATE		_IOR(AB_SM_IOCTL_MAGIC, 2, int *)
 
-/* On success will return 0, otherwise will return error < 0. */
+/*
+ * On success will return 0, otherwise will return error < 0.
+ * -ETIMEDOUT: state change for thermal disabling timed out.
+ * -EBUSY: already throttled to suspend due to system overheated.
+ */
 #define AB_SM_ENTER_EL2		_IO(AB_SM_IOCTL_MAGIC, 3)
 
 /* On success will return 0, otherwise will return error < 0. */
@@ -173,7 +177,6 @@
  */
 #define AB_SM_GET_EL2_MODE	_IOR(AB_SM_IOCTL_MAGIC, 20, int *)
 
-
 /* First call after open will immediately return the current
  * state. Subsequent calls will block until next state change,
  * then return the new state.
@@ -201,6 +204,13 @@
  * On success will return 0, otherwise will return error < 0.
  */
 #define AB_SM_MAPPED_GET_STATE		_IOR(AB_SM_IOCTL_MAGIC, 23, int *)
+
+/*
+ * Parameter int:
+ *	Pass new L1ss entry delay to set
+ * On success will return 0, otherwise will return error < 0.
+ */
+#define AB_SM_SET_PCIE_L1SS_DELAY  _IOW(AB_SM_IOCTL_MAGIC, 24, int)
 
 #define AB_CHIP_ID_UNKNOWN	-1
 #define AB_CHIP_ID_A0		0

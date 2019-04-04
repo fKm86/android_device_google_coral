@@ -16,8 +16,8 @@
  ***
  ****************************************************************************
  ****************************************************************************/
-#ifndef _UAPI_MSM_AUDIO_AMR_WB_PLUS_H
-#define _UAPI_MSM_AUDIO_AMR_WB_PLUS_H
+#ifndef _MSM_AUDIO_AMR_WB_PLUS_H
+#define _MSM_AUDIO_AMR_WB_PLUS_H
 #define AUDIO_GET_AMRWBPLUS_CONFIG_V2 _IOR(AUDIO_IOCTL_MAGIC, (AUDIO_MAX_COMMON_IOCTL_NUM + 2), struct msm_audio_amrwbplus_config_v2)
 #define AUDIO_SET_AMRWBPLUS_CONFIG_V2 _IOW(AUDIO_IOCTL_MAGIC, (AUDIO_MAX_COMMON_IOCTL_NUM + 3), struct msm_audio_amrwbplus_config_v2)
 struct msm_audio_amrwbplus_config_v2 {
@@ -30,4 +30,3 @@ struct msm_audio_amrwbplus_config_v2 {
   unsigned int amr_lsf_idx;
 };
 #endif
-

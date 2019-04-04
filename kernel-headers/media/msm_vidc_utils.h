@@ -328,4 +328,3 @@ struct msm_vidc_vui_display_info_payload {
 #define MSM_VIDC_PIC_STRUCT_PROGRESSIVE 0x1
 #define MSM_VIDC_ALL_LAYER_ID 0xFF
 #endif
-

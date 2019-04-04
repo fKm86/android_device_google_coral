@@ -85,4 +85,3 @@ enum query_opcode {
 #define UPIU_QUERY_OPCODE_HIGH(opcode) ((opcode) >> 16)
 #define UPIU_QUERY_OPCODE_LOW(opcode) ((opcode) & 0xffff)
 #endif
-

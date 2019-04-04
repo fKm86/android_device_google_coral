@@ -24,7 +24,7 @@ struct dolby_param_data {
   int32_t be_id;
   int32_t param_id;
   int32_t length;
-  int32_t __user * data;
+  int32_t * data;
 };
 struct dolby_param_license {
   int32_t dmid;
@@ -58,7 +58,7 @@ struct dts_eagle_param_desc {
   uint32_t size;
   int32_t offset;
   uint32_t device;
-} __packed;
+} __attribute__((packed));
 #define HWDEP_FE_BASE 3000
 struct snd_pcm_mmap_fd {
   int32_t dir;
@@ -68,4 +68,3 @@ struct snd_pcm_mmap_fd {
 };
 #define SNDRV_PCM_IOCTL_MMAP_DATA_FD _IOWR('U', 0xd2, struct snd_pcm_mmap_fd)
 #endif
-

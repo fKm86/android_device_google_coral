@@ -108,4 +108,3 @@ struct cam_icp_acquire_dev_info {
   struct cam_icp_res_info out_res[1];
 } __attribute__((__packed__));
 #endif
-

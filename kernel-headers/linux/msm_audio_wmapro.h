@@ -16,8 +16,8 @@
  ***
  ****************************************************************************
  ****************************************************************************/
-#ifndef _UAPI_MSM_AUDIO_WMAPRO_H
-#define _UAPI_MSM_AUDIO_WMAPRO_H
+#ifndef _MSM_AUDIO_WMAPRO_H
+#define _MSM_AUDIO_WMAPRO_H
 #define AUDIO_GET_WMAPRO_CONFIG _IOR(AUDIO_IOCTL_MAGIC, (AUDIO_MAX_COMMON_IOCTL_NUM + 0), struct msm_audio_wmapro_config)
 #define AUDIO_SET_WMAPRO_CONFIG _IOW(AUDIO_IOCTL_MAGIC, (AUDIO_MAX_COMMON_IOCTL_NUM + 1), struct msm_audio_wmapro_config)
 struct msm_audio_wmapro_config {
@@ -34,4 +34,3 @@ struct msm_audio_wmapro_config {
   uint32_t advancedencodeopt2;
 };
 #endif
-

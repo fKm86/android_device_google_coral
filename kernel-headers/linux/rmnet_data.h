@@ -112,4 +112,3 @@ enum rmnet_config_return_codes_e {
   RMNET_CONFIG_TC_HANDLE_FULL
 };
 #endif
-

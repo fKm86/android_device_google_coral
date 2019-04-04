@@ -65,4 +65,3 @@ struct vbe_ib {
   char misc_data[512];
 } __attribute__((packed));
 #endif
-

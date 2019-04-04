@@ -14,8 +14,8 @@
  *
  */
 
-#ifndef _UAPI_LINUX_MSM_AUDIO_H
-#define _UAPI_LINUX_MSM_AUDIO_H
+#ifndef _LINUX_MSM_AUDIO_H
+#define _LINUX_MSM_AUDIO_H
 
 #include <linux/types.h>
 #include <linux/ioctl.h>
@@ -472,4 +472,7 @@ struct msm_adsp_event_data {
 	__u8 payload[0];
 };
 
+struct msm_pcm_drv_data {
+	const char *config_name;
+};
 #endif

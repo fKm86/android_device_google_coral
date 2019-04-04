@@ -1398,4 +1398,3 @@
 #define TAIKO_CODEC_PACK_ENTRY(reg,mask,val) ((val & 0xff) | ((mask & 0xff) << 8) | ((reg & 0xffff) << 16))
 #define TAIKO_CODEC_UNPACK_ENTRY(packed,reg,mask,val) do { ((reg) = ((packed >> 16) & (0xffff))); ((mask) = ((packed >> 8) & (0xff))); ((val) = ((packed) & (0xff))); } while(0);
 #endif
-

@@ -1425,4 +1425,3 @@ struct v4l2_create_buffers {
 #define BASE_VIDIOC_PRIVATE 192
 #define BASE_VIDIOC_PRIVATE_VIDEO (BASE_VIDIOC_PRIVATE + 0)
 #endif
-

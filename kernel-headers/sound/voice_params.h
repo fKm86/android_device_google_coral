@@ -26,4 +26,3 @@ enum voice_lch_mode {
 };
 #define SNDRV_VOICE_IOCTL_LCH _IOW('U', 0x00, enum voice_lch_mode)
 #endif
-

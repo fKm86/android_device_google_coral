@@ -224,4 +224,3 @@ struct cam_isp_acquire_hw_info {
 #define CAM_ISP_ACQUIRE_OUT_VER0 0x3000
 #define CAM_ISP_ACQUIRE_OUT_SIZE_VER0 sizeof(struct cam_isp_out_port_info)
 #endif
-

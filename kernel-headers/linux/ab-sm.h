@@ -44,6 +44,7 @@
 #define AB_SM_MAPPED_ASYNC_NOTIFY _IOR(AB_SM_IOCTL_MAGIC, 21, int *)
 #define AB_SM_MAPPED_SET_STATE _IOW(AB_SM_IOCTL_MAGIC, 22, int)
 #define AB_SM_MAPPED_GET_STATE _IOR(AB_SM_IOCTL_MAGIC, 23, int *)
+#define AB_SM_SET_PCIE_L1SS_DELAY _IOW(AB_SM_IOCTL_MAGIC, 24, int)
 #define AB_CHIP_ID_UNKNOWN - 1
 #define AB_CHIP_ID_A0 0
 #define AB_CHIP_ID_B0 1
@@ -95,4 +96,3 @@ struct new_block_props {
   struct uapi_block_properties table[AB_SM_UAPI_NUM_BLOCK_STATES];
 };
 #endif
-

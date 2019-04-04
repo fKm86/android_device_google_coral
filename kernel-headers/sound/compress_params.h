@@ -299,4 +299,3 @@ struct snd_codec_metadata {
   __u32 reserved[4];
 };
 #endif
-

@@ -866,4 +866,3 @@ struct ipa_remove_offload_connection_resp_msg_v01 {
 #define QMI_IPA_INSTALL_UL_FIREWALL_RULES_IND_MAX_MSG_LEN_V01 11
 #define QMI_IPA_MAX_MSG_LEN 22685
 #endif
-

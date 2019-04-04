@@ -29,4 +29,3 @@ enum {
   AUDIO_SLIMSLAVE_VOTE
 };
 #endif
-

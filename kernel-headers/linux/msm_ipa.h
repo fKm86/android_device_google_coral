@@ -1081,4 +1081,3 @@ enum odu_bridge_mode {
 #define ODU_BRIDGE_IOC_SET_MODE _IOW(ODU_BRIDGE_IOC_MAGIC, ODU_BRIDGE_IOCTL_SET_MODE, enum odu_bridge_mode)
 #define ODU_BRIDGE_IOC_SET_LLV6_ADDR _IOW(ODU_BRIDGE_IOC_MAGIC, ODU_BRIDGE_IOCTL_SET_LLV6_ADDR, struct in6_addr *)
 #endif
-

@@ -16,8 +16,8 @@
  ***
  ****************************************************************************
  ****************************************************************************/
-#ifndef _UAPI_LSM_PARAMS_H__
-#define _UAPI_LSM_PARAMS_H__
+#ifndef _LSM_PARAMS_H__
+#define _LSM_PARAMS_H__
 #define LSM_POLLING_ENABLE_SUPPORT
 #define LSM_EVENT_TIMESTAMP_MODE_SUPPORT
 #include <linux/types.h>
@@ -87,7 +87,7 @@ struct snd_lsm_det_event_type {
   __u32 mode;
 };
 struct snd_lsm_sound_model_v2 {
-  __u8 __user * data;
+  __u8 * data;
   __u8 * confidence_level;
   __u32 data_size;
   enum lsm_detection_mode detection_mode;
@@ -132,20 +132,20 @@ struct lsm_params_info {
   __u32 module_id;
   __u32 param_id;
   __u32 param_size;
-  __u8 __user * param_data;
+  __u8 * param_data;
   uint32_t param_type;
 };
 struct lsm_params_info_v2 {
   __u32 module_id;
   __u32 param_id;
   __u32 param_size;
-  __u8 __user * param_data;
+  __u8 * param_data;
   uint32_t param_type;
   __u16 instance_id;
   __u16 stage_idx;
 };
 struct snd_lsm_module_params {
-  __u8 __user * params;
+  __u8 * params;
   __u32 num_params;
   __u32 data_size;
 };
@@ -159,7 +159,7 @@ struct snd_lsm_input_hw_params {
   __u32 sample_rate;
   __u16 bit_width;
   __u16 num_channels;
-} __packed;
+} __attribute__((packed));
 #define SNDRV_LSM_DEREG_SND_MODEL _IOW('U', 0x01, int)
 #define SNDRV_LSM_EVENT_STATUS _IOW('U', 0x02, struct snd_lsm_event_status)
 #define SNDRV_LSM_ABORT_EVENT _IOW('U', 0x03, int)
@@ -180,4 +180,3 @@ struct snd_lsm_input_hw_params {
 #define SNDRV_LSM_SET_SESSION_DATA_V2 _IOW('U', 0x12, struct snd_lsm_session_data_v2)
 #define SNDRV_LSM_SET_MODULE_PARAMS_V2 _IOW('U', 0x13, struct snd_lsm_module_params)
 #endif
-

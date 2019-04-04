@@ -16,8 +16,8 @@
  ***
  ****************************************************************************
  ****************************************************************************/
-#ifndef _UAPI_MSM_AUDIO_CALIBRATION_H
-#define _UAPI_MSM_AUDIO_CALIBRATION_H
+#ifndef _MSM_AUDIO_CALIBRATION_H
+#define _MSM_AUDIO_CALIBRATION_H
 #include <linux/types.h>
 #include <linux/ioctl.h>
 #define CAL_IOCTL_MAGIC 'a'
@@ -225,9 +225,11 @@ enum msm_spkr_prot_states {
   MSM_SPKR_PROT_DISABLED,
   MSM_SPKR_PROT_NOT_CALIBRATED,
   MSM_SPKR_PROT_PRE_CALIBRATED,
-  MSM_SPKR_PROT_IN_FTM_MODE
+  MSM_SPKR_PROT_IN_FTM_MODE,
+  MSM_SPKR_PROT_IN_V_VALI_MODE
 };
 #define MSM_SPKR_PROT_IN_FTM_MODE MSM_SPKR_PROT_IN_FTM_MODE
+#define MSM_SPKR_PROT_IN_V_VALI_MODE MSM_SPKR_PROT_IN_V_VALI_MODE
 enum msm_spkr_count {
   SP_V2_SPKR_1,
   SP_V2_SPKR_2,
@@ -244,9 +246,14 @@ struct audio_cal_info_spk_prot_cfg {
 #endif
 };
 struct audio_cal_info_sp_th_vi_ftm_cfg {
+  uint32_t mode;
   uint32_t wait_time[SP_V2_NUM_MAX_SPKRS];
   uint32_t ftm_time[SP_V2_NUM_MAX_SPKRS];
+};
+struct audio_cal_info_sp_th_vi_v_vali_cfg {
   uint32_t mode;
+  uint32_t wait_time[SP_V2_NUM_MAX_SPKRS];
+  uint32_t vali_time[SP_V2_NUM_MAX_SPKRS];
 };
 struct audio_cal_info_sp_ex_vi_ftm_cfg {
   uint32_t wait_time[SP_V2_NUM_MAX_SPKRS];
@@ -260,8 +267,14 @@ struct audio_cal_info_sp_ex_vi_param {
   int32_t status[SP_V2_NUM_MAX_SPKRS];
 };
 struct audio_cal_info_sp_th_vi_param {
+  uint32_t mode;
   int32_t r_dc_q24[SP_V2_NUM_MAX_SPKRS];
   int32_t temp_q22[SP_V2_NUM_MAX_SPKRS];
+  int32_t status[SP_V2_NUM_MAX_SPKRS];
+};
+struct audio_cal_info_sp_th_vi_v_vali_param {
+  uint32_t mode;
+  uint32_t vrms_q24[SP_V2_NUM_MAX_SPKRS];
   int32_t status[SP_V2_NUM_MAX_SPKRS];
 };
 struct audio_cal_info_msm_spk_prot_status {
@@ -332,16 +345,16 @@ union audio_cal_col_na {
   uint16_t val16;
   uint32_t val32;
   uint64_t val64;
-} __packed;
+} __attribute__((packed));
 struct audio_cal_col {
   uint32_t id;
   uint32_t type;
   union audio_cal_col_na na_value;
-} __packed;
+} __attribute__((packed));
 struct audio_cal_col_data {
   uint32_t num_columns;
   struct audio_cal_col column[MAX_VOICE_COLUMNS];
-} __packed;
+} __attribute__((packed));
 struct audio_cal_info_voc_col {
   int32_t table_id;
   int32_t tx_acdb_id;
@@ -454,6 +467,15 @@ struct audio_cal_type_sp_th_vi_ftm_cfg {
 struct audio_cal_sp_th_vi_ftm_cfg {
   struct audio_cal_header hdr;
   struct audio_cal_type_sp_th_vi_ftm_cfg cal_type;
+};
+struct audio_cal_type_sp_th_vi_v_vali_cfg {
+  struct audio_cal_type_header cal_hdr;
+  struct audio_cal_data cal_data;
+  struct audio_cal_info_sp_th_vi_v_vali_cfg cal_info;
+};
+struct audio_cal_sp_th_vi_v_vali_cfg {
+  struct audio_cal_header hdr;
+  struct audio_cal_type_sp_th_vi_v_vali_cfg cal_type;
 };
 struct audio_cal_type_sp_ex_vi_ftm_cfg {
   struct audio_cal_type_header cal_hdr;
@@ -572,6 +594,15 @@ struct audio_cal_sp_th_vi_param {
   struct audio_cal_header hdr;
   struct audio_cal_type_sp_th_vi_param cal_type;
 };
+struct audio_cal_type_sp_th_vi_v_vali_param {
+  struct audio_cal_type_header cal_hdr;
+  struct audio_cal_data cal_data;
+  struct audio_cal_info_sp_th_vi_v_vali_param cal_info;
+};
+struct audio_cal_sp_th_vi_v_vali_param {
+  struct audio_cal_header hdr;
+  struct audio_cal_type_sp_th_vi_v_vali_param cal_type;
+};
 struct audio_cal_type_sp_ex_vi_param {
   struct audio_cal_type_header cal_hdr;
   struct audio_cal_data cal_data;
@@ -582,4 +613,3 @@ struct audio_cal_sp_ex_vi_param {
   struct audio_cal_type_sp_ex_vi_param cal_type;
 };
 #endif
-
