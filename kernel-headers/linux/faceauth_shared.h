@@ -21,6 +21,8 @@
 #define DISABLE_GAZE (1ULL << 0)
 #define DISABLE_MULTI_ANGLE_ENROLLMENT (1ULL << 1)
 #define SECURE_CAMERA_DATA (1ULL << 2)
+#define ENABLE_RECTIFY_FLOOD (1ULL << 61)
+#define ENABLE_DEPTH_PIPELINE (1ULL << 62)
 #define DISABLE_SKIN_CLASSIFIER (1ULL << 63)
 #define ERROR_NO_ERROR 0
 #define ERROR_GENERAL_ERROR - 1
@@ -94,12 +96,35 @@ typedef enum _faceauth_input_commands {
   COMMAND_RESET_LOCKOUT,
   COMMAND_INTMAX = 0xffffffff
 } FaceAuthInputCommands;
-#define EMBEDDING_CMD_STRINGS { "COMMAND_NONE", "COMMAND_ENROLL", "COMMAND_ENROLL_COMPLETE", "COMMAND_ERASE", "COMMAND_VALIDATE", "COMMAND_EXIT", "COMMAND_GET_CHALLENGE", "COMMAND_REVOKE_CHALLENGE", "COMMAND_GET_USER_INFO", "COMMAND_SET_FEATURE", "COMMAND_CLR_FEATURE", "COMMAND_RESET_LOCKOUT", \
-}
 typedef enum _faceauth_ack_messages {
   STATUS_NONE = 0,
   STATUS_READY,
   STATUS_BUSY,
   STATUS_INTMAX = 0xffffffff
 } FaceAckMessages;
+struct Coordinate {
+  int32_t x;
+  int32_t y;
+} __attribute__((packed));
+enum FaceLandmarks {
+  LEFT_EYE = 0,
+  RIGHT_EYE,
+  NOSE_TIP,
+  MOUTH_CENTER,
+  LEFT_EAR_TRAGION,
+  RIGHT_EAR_TRAGION,
+  NUM_FACE_LANDMARKS,
+  FACE_LANDMARK_INTMAX = 0xffffffff
+};
+struct Face {
+  int32_t x1;
+  int32_t y1;
+  int32_t x2;
+  int32_t y2;
+  struct Coordinate landmark[NUM_FACE_LANDMARKS];
+  uint32_t confidence;
+  int32_t pan_angle;
+  int32_t tilt_angle;
+  int32_t roll_angle;
+} __attribute__((packed));
 #endif
