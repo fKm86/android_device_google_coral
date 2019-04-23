@@ -91,6 +91,8 @@ enum faceauth_buffer_type {
   OUTPUT_16BIT_GRAYSCALE_128x128,
   OUTPUT_16BIT_GRAYSCALE_480x640,
   OUTPUT_8BITRGB_128x128,
+  OUTPUT_FACE_BUF,
+  OUTPUT_NUM_FACES,
   OUTPUT_INTMAX = 0xffffffff,
 };
 struct faceauth_buffer_descriptor {
