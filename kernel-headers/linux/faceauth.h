@@ -27,7 +27,7 @@
 #define FACEAUTH_MAX_TASKS 32
 #define FACEAUTH_DEBUG_REGISTER_COUNT 24
 #define FACEAUTH_BUFFER_TAG_LENGTH 16
-#define FACEAUTH_BUFFER_LIST_LENGTH 16
+#define FACEAUTH_BUFFER_LIST_LENGTH 32
 struct faceauth_init_data {
   __u64 features;
 } __attribute__((packed));
@@ -115,7 +115,10 @@ struct faceauth_airbrush_state {
   struct faceauth_workload_control control_list[FACEAUTH_MAX_TASKS];
   struct faceauth_debug_register debug_registers[FACEAUTH_DEBUG_REGISTER_COUNT];
   struct faceauth_buffer_list output_buffers;
-  struct faceauth_buffer_list scratch_buffers;
+  __u32 flags;
+  __u32 command_id;
+  __u64 citadel_input_data;
+  __u64 feature_bypass_flags;
 } __attribute__((packed));
 struct faceauth_debug_image {
   __u32 offset_to_image;

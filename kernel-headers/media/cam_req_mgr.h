@@ -63,6 +63,14 @@ enum laser_tag_type {
   LASER_TAG_FLOOD,
   LASER_TAG_DOT
 };
+enum safety_ic_error_type {
+  NO_ERROR,
+  LENS_CRACK,
+  LASER_OPERATION_FAULT,
+  TEMPERATURE_TOO_HIGH,
+  TEMPERATURE_TOO_LOW,
+  HUMIDITY_TOO_HIGH
+};
 struct cam_req_mgr_event_data {
   int32_t session_hdl;
   int32_t link_hdl;
@@ -213,6 +221,7 @@ struct cam_req_mgr_frame_msg {
   int32_t link_hdl;
   uint32_t sof_status;
   enum laser_tag_type laser_tag;
+  enum safety_ic_error_type safety_ic_status;
 };
 struct cam_req_mgr_message {
   int32_t session_hdl;
