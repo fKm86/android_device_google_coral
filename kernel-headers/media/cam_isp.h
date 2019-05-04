@@ -80,6 +80,7 @@
 #define CAM_ISP_GENERIC_BLOB_TYPE_UBWC_CONFIG 3
 #define CAM_ISP_GENERIC_BLOB_TYPE_CSID_CLOCK_CONFIG 4
 #define CAM_ISP_GENERIC_BLOB_TYPE_FE_CONFIG 5
+#define CAM_ISP_GENERIC_BLOB_TYPE_BW_CONFIG_V2 6
 struct cam_isp_dev_cap_info {
   uint32_t hw_type;
   uint32_t reserved;
@@ -189,6 +190,13 @@ struct cam_isp_bw_config {
   struct cam_isp_bw_vote left_pix_vote;
   struct cam_isp_bw_vote right_pix_vote;
   struct cam_isp_bw_vote rdi_vote[1];
+} __attribute__((packed));
+struct cam_isp_bw_config_ab {
+  uint32_t usage_type;
+  uint32_t num_rdi;
+  uint64_t left_pix_vote_ab;
+  uint64_t right_pix_vote_ab;
+  uint64_t rdi_vote_ab[1];
 } __attribute__((packed));
 struct cam_fe_config {
   uint64_t version;

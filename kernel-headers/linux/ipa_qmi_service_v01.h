@@ -67,8 +67,10 @@ enum ipa_platform_type_enum_v01 {
   QMI_IPA_PLATFORM_TYPE_MSM_ANDROID_V01 = 3,
   QMI_IPA_PLATFORM_TYPE_MSM_WINDOWS_V01 = 4,
   QMI_IPA_PLATFORM_TYPE_MSM_QNX_V01 = 5,
+  QMI_IPA_PLATFORM_TYPE_LE_MHI_V01 = 6,
   IPA_PLATFORM_TYPE_ENUM_MAX_ENUM_VAL_V01 = 2147483647
 };
+#define QMI_IPA_PLATFORM_TYPE_LE_MHI_V01 QMI_IPA_PLATFORM_TYPE_LE_MHI_V01
 struct ipa_hdr_tbl_info_type_v01 {
   uint32_t modem_offset_start;
   uint32_t modem_offset_end;
