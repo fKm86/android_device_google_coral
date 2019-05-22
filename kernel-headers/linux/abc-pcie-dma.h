@@ -16,9 +16,8 @@
  ***
  ****************************************************************************
  ****************************************************************************/
-#ifndef _UAPI__ABC_PCIE_DMA_H
-#define _UAPI__ABC_PCIE_DMA_H
-#include <linux/compiler.h>
+#ifndef __ABC_PCIE_DMA_H
+#define __ABC_PCIE_DMA_H
 #include <linux/ioctl.h>
 #include <linux/types.h>
 #define ABC_PCIE_DMA_IOC_MAGIC 'U'
@@ -33,7 +32,7 @@ enum abc_dma_data_direction {
 struct abc_pcie_dma_desc_legacy {
   enum dma_buf_type local_buf_type;
   union {
-    void __user * local_buf;
+    void * local_buf;
     int local_dma_buf_fd;
   };
   __u32 local_buf_size;
@@ -48,7 +47,7 @@ struct abc_pcie_dma_desc_legacy {
 struct abc_pcie_dma_desc {
   enum dma_buf_type local_buf_type;
   union {
-    void __user * local_buf;
+    void * local_buf;
     int local_dma_buf_fd;
   };
   __u64 local_dma_buf_off;

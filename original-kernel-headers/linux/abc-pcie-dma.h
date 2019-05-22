@@ -7,10 +7,10 @@
  * it under the terms of the GNU General Public License version 2 as
  * published by the Free Software Foundation.
  */
-#ifndef _UAPI__ABC_PCIE_DMA_H
-#define _UAPI__ABC_PCIE_DMA_H
+#ifndef __ABC_PCIE_DMA_H
+#define __ABC_PCIE_DMA_H
 
-#include <linux/compiler.h>
+
 #include <linux/ioctl.h>
 #include <linux/types.h>
 
@@ -30,7 +30,7 @@ enum abc_dma_data_direction {
 struct abc_pcie_dma_desc_legacy {
 	enum dma_buf_type local_buf_type; /* local buffer type (DMA/user) */
 	union {
-		void __user *local_buf; /* local buffer address */
+		void *local_buf; /* local buffer address */
 		int local_dma_buf_fd; /* local DMA buffer file descriptor */
 	};
 	__u32 local_buf_size; /* local buffer size */
@@ -52,7 +52,7 @@ struct abc_pcie_dma_desc_legacy {
 struct abc_pcie_dma_desc {
 	enum dma_buf_type local_buf_type; /* local buffer type (DMA/user) */
 	union {
-		void __user *local_buf; /* local buffer address */
+		void *local_buf; /* local buffer address */
 		int local_dma_buf_fd; /* local DMA buffer file descriptor */
 	};
 	__u64 local_dma_buf_off; /* offset within dma buf to xfer from/to */
@@ -104,4 +104,4 @@ struct abc_pcie_dma_desc_wait {
 	_IOW(ABC_PCIE_DMA_IOC_MAGIC, 6, __u64)
 
 
-#endif /* _UAPI__ABC_PCIE_DMA_H */
+#endif /* __ABC_PCIE_DMA_H */
