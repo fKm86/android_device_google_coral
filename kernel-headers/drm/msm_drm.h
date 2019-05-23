@@ -188,6 +188,10 @@ struct drm_msm_event_resp {
   struct drm_msm_event_req info;
   __u8 data[];
 };
+struct drm_msm_power_ctrl {
+  __u32 enable;
+  __u32 flags;
+};
 #define DRM_MSM_GET_PARAM 0x00
 #define DRM_MSM_GEM_NEW 0x02
 #define DRM_MSM_GEM_INFO 0x03
@@ -200,6 +204,7 @@ struct drm_msm_event_resp {
 #define DRM_MSM_REGISTER_EVENT 0x41
 #define DRM_MSM_DEREGISTER_EVENT 0x42
 #define DRM_MSM_RMFB2 0x43
+#define DRM_MSM_POWER_CTRL 0x44
 #define DRM_EVENT_HISTOGRAM 0x80000000
 #define DRM_EVENT_AD_BACKLIGHT 0x80000001
 #define DRM_EVENT_CRTC_POWER 0x80000002
@@ -220,6 +225,7 @@ struct drm_msm_event_resp {
 #define DRM_IOCTL_MSM_REGISTER_EVENT DRM_IOW((DRM_COMMAND_BASE + DRM_MSM_REGISTER_EVENT), struct drm_msm_event_req)
 #define DRM_IOCTL_MSM_DEREGISTER_EVENT DRM_IOW((DRM_COMMAND_BASE + DRM_MSM_DEREGISTER_EVENT), struct drm_msm_event_req)
 #define DRM_IOCTL_MSM_RMFB2 DRM_IOW((DRM_COMMAND_BASE + DRM_MSM_RMFB2), unsigned int)
+#define DRM_IOCTL_MSM_POWER_CTRL DRM_IOW((DRM_COMMAND_BASE + DRM_MSM_POWER_CTRL), struct drm_msm_power_ctrl)
 #ifdef __cplusplus
 }
 #endif

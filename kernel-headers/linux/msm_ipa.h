@@ -98,6 +98,16 @@
 #define IPA_IOCTL_GSB_CONNECT 64
 #define IPA_IOCTL_GSB_DISCONNECT 65
 #define IPA_IOCTL_WIGIG_FST_SWITCH 66
+#define IPA_IOCTL_ADD_RT_RULE_V2 67
+#define IPA_IOCTL_ADD_RT_RULE_EXT_V2 68
+#define IPA_IOCTL_ADD_RT_RULE_AFTER_V2 69
+#define IPA_IOCTL_MDFY_RT_RULE_V2 70
+#define IPA_IOCTL_ADD_FLT_RULE_V2 71
+#define IPA_IOCTL_ADD_FLT_RULE_AFTER_V2 72
+#define IPA_IOCTL_MDFY_FLT_RULE_V2 73
+#define IPA_IOCTL_FNR_COUNTER_ALLOC 74
+#define IPA_IOCTL_FNR_COUNTER_DEALLOC 75
+#define IPA_IOCTL_FNR_COUNTER_QUERY 76
 #define IPA_HDR_MAX_SIZE 64
 #define IPA_RESOURCE_NAME_MAX 32
 #define IPA_NUM_PROPS_MAX 35
@@ -106,6 +116,9 @@
 #define IPA_WAN_MSG_IPv6_ADDR_GW_LEN 4
 #define IPA_MAX_NUM_HW_PATH_CLIENTS 16
 #define QMI_IPA_MAX_CLIENT_DST_PIPES 4
+#define IPA_MAX_FLT_RT_CNT_INDEX (128)
+#define IPA_FLT_RT_HW_COUNTER (120)
+#define IPA_FLT_RT_SW_COUNTER (IPA_MAX_FLT_RT_CNT_INDEX - IPA_FLT_RT_HW_COUNTER)
 #define IPA_FLT_TOS (1ul << 0)
 #define IPA_FLT_PROTOCOL (1ul << 1)
 #define IPA_FLT_SRC_ADDR (1ul << 2)
@@ -517,6 +530,23 @@ struct ipa_flt_rule {
   uint8_t set_metadata;
   uint8_t pdn_idx;
 };
+struct ipa_flt_rule_v2 {
+  uint8_t retain_hdr;
+  uint8_t to_uc;
+  enum ipa_flt_action action;
+  uint32_t rt_tbl_hdl;
+  struct ipa_rule_attrib attrib;
+  struct ipa_ipfltri_rule_eq eq_attrib;
+  uint32_t rt_tbl_idx;
+  uint8_t eq_attrib_type;
+  uint8_t max_prio;
+  uint8_t hashable;
+  uint16_t rule_id;
+  uint8_t set_metadata;
+  uint8_t pdn_idx;
+  uint8_t enable_stats;
+  uint8_t cnt_idx;
+};
 enum ipa_hdr_l2_type {
   IPA_HDR_L2_NONE,
   IPA_HDR_L2_ETHERNET_II,
@@ -546,6 +576,18 @@ struct ipa_rt_rule {
   uint8_t coalesce;
 };
 #define IPA_RT_SUPPORT_COAL
+struct ipa_rt_rule_v2 {
+  enum ipa_client_type dst;
+  uint32_t hdr_hdl;
+  uint32_t hdr_proc_ctx_hdl;
+  struct ipa_rule_attrib attrib;
+  uint8_t max_prio;
+  uint8_t hashable;
+  uint8_t retain_hdr;
+  uint8_t coalesce;
+  uint8_t enable_stats;
+  uint8_t cnt_idx;
+};
 struct ipa_hdr_add {
   char name[IPA_RESOURCE_NAME_MAX];
   uint8_t hdr[IPA_HDR_MAX_SIZE];
@@ -633,12 +675,26 @@ struct ipa_rt_rule_add {
   uint32_t rt_rule_hdl;
   int status;
 };
+struct ipa_rt_rule_add_v2 {
+  uint8_t at_rear;
+  uint32_t rt_rule_hdl;
+  int status;
+  struct ipa_rt_rule_v2 rule;
+};
 struct ipa_ioc_add_rt_rule {
   uint8_t commit;
   enum ipa_ip_type ip;
   char rt_tbl_name[IPA_RESOURCE_NAME_MAX];
   uint8_t num_rules;
   struct ipa_rt_rule_add rules[0];
+};
+struct ipa_ioc_add_rt_rule_v2 {
+  uint8_t commit;
+  enum ipa_ip_type ip;
+  char rt_tbl_name[IPA_RESOURCE_NAME_MAX];
+  uint8_t num_rules;
+  uint32_t rule_add_size;
+  uintptr_t rules;
 };
 struct ipa_ioc_add_rt_rule_after {
   uint8_t commit;
@@ -648,16 +704,37 @@ struct ipa_ioc_add_rt_rule_after {
   uint32_t add_after_hdl;
   struct ipa_rt_rule_add rules[0];
 };
+struct ipa_ioc_add_rt_rule_after_v2 {
+  uint8_t commit;
+  enum ipa_ip_type ip;
+  char rt_tbl_name[IPA_RESOURCE_NAME_MAX];
+  uint8_t num_rules;
+  uint32_t add_after_hdl;
+  uint32_t rule_add_size;
+  uintptr_t rules;
+};
 struct ipa_rt_rule_mdfy {
   struct ipa_rt_rule rule;
   uint32_t rt_rule_hdl;
   int status;
+};
+struct ipa_rt_rule_mdfy_v2 {
+  uint32_t rt_rule_hdl;
+  int status;
+  struct ipa_rt_rule_v2 rule;
 };
 struct ipa_ioc_mdfy_rt_rule {
   uint8_t commit;
   enum ipa_ip_type ip;
   uint8_t num_rules;
   struct ipa_rt_rule_mdfy rules[0];
+};
+struct ipa_ioc_mdfy_rt_rule_v2 {
+  uint8_t commit;
+  enum ipa_ip_type ip;
+  uint8_t num_rules;
+  uint32_t rule_mdfy_size;
+  uintptr_t rules;
 };
 struct ipa_rt_rule_del {
   uint32_t hdl;
@@ -670,12 +747,27 @@ struct ipa_rt_rule_add_ext {
   int status;
   uint16_t rule_id;
 };
+struct ipa_rt_rule_add_ext_v2 {
+  uint8_t at_rear;
+  uint32_t rt_rule_hdl;
+  int status;
+  uint16_t rule_id;
+  struct ipa_rt_rule_v2 rule;
+};
 struct ipa_ioc_add_rt_rule_ext {
   uint8_t commit;
   enum ipa_ip_type ip;
   char rt_tbl_name[IPA_RESOURCE_NAME_MAX];
   uint8_t num_rules;
   struct ipa_rt_rule_add_ext rules[0];
+};
+struct ipa_ioc_add_rt_rule_ext_v2 {
+  uint8_t commit;
+  enum ipa_ip_type ip;
+  char rt_tbl_name[IPA_RESOURCE_NAME_MAX];
+  uint8_t num_rules;
+  uint32_t rule_add_ext_size;
+  uintptr_t rules;
 };
 struct ipa_ioc_del_rt_rule {
   uint8_t commit;
@@ -694,6 +786,12 @@ struct ipa_flt_rule_add {
   uint32_t flt_rule_hdl;
   int status;
 };
+struct ipa_flt_rule_add_v2 {
+  uint8_t at_rear;
+  uint32_t flt_rule_hdl;
+  int status;
+  struct ipa_flt_rule_v2 rule;
+};
 struct ipa_ioc_add_flt_rule {
   uint8_t commit;
   enum ipa_ip_type ip;
@@ -701,6 +799,15 @@ struct ipa_ioc_add_flt_rule {
   uint8_t global;
   uint8_t num_rules;
   struct ipa_flt_rule_add rules[0];
+};
+struct ipa_ioc_add_flt_rule_v2 {
+  uint8_t commit;
+  enum ipa_ip_type ip;
+  enum ipa_client_type ep;
+  uint8_t global;
+  uint8_t num_rules;
+  uint32_t flt_rule_size;
+  uintptr_t rules;
 };
 struct ipa_ioc_add_flt_rule_after {
   uint8_t commit;
@@ -710,16 +817,37 @@ struct ipa_ioc_add_flt_rule_after {
   uint32_t add_after_hdl;
   struct ipa_flt_rule_add rules[0];
 };
+struct ipa_ioc_add_flt_rule_after_v2 {
+  uint8_t commit;
+  enum ipa_ip_type ip;
+  enum ipa_client_type ep;
+  uint8_t num_rules;
+  uint32_t add_after_hdl;
+  uint32_t flt_rule_size;
+  uintptr_t rules;
+};
 struct ipa_flt_rule_mdfy {
   struct ipa_flt_rule rule;
   uint32_t rule_hdl;
   int status;
+};
+struct ipa_flt_rule_mdfy_v2 {
+  uint32_t rule_hdl;
+  int status;
+  struct ipa_flt_rule_v2 rule;
 };
 struct ipa_ioc_mdfy_flt_rule {
   uint8_t commit;
   enum ipa_ip_type ip;
   uint8_t num_rules;
   struct ipa_flt_rule_mdfy rules[0];
+};
+struct ipa_ioc_mdfy_flt_rule_v2 {
+  uint8_t commit;
+  enum ipa_ip_type ip;
+  uint8_t num_rules;
+  uint32_t rule_mdfy_size;
+  uintptr_t rules;
 };
 struct ipa_flt_rule_del {
   uint32_t hdl;
@@ -908,6 +1036,29 @@ struct ipa_ioc_write_qmapid {
   enum ipa_client_type client;
   uint8_t qmap_id;
 };
+struct ipa_flt_rt_counter_alloc {
+  uint8_t num_counters;
+  uint8_t allow_less;
+  uint8_t start_id;
+  uint8_t end_id;
+};
+struct ipa_ioc_flt_rt_counter_alloc {
+  int hdl;
+  struct ipa_flt_rt_counter_alloc hw_counter;
+  struct ipa_flt_rt_counter_alloc sw_counter;
+};
+struct ipa_flt_rt_stats {
+  uint32_t num_pkts;
+  uint32_t num_pkts_hash;
+  uint64_t num_bytes;
+};
+struct ipa_ioc_flt_rt_query {
+  uint8_t start_id;
+  uint8_t end_id;
+  uint8_t reset;
+  uint32_t stats_size;
+  uintptr_t stats;
+};
 enum ipacm_client_enum {
   IPACM_CLIENT_USB = 1,
   IPACM_CLIENT_WLAN,
@@ -974,11 +1125,16 @@ struct ipa_odl_modem_config {
 #define IPA_IOC_ADD_HDR _IOWR(IPA_IOC_MAGIC, IPA_IOCTL_ADD_HDR, struct ipa_ioc_add_hdr *)
 #define IPA_IOC_DEL_HDR _IOWR(IPA_IOC_MAGIC, IPA_IOCTL_DEL_HDR, struct ipa_ioc_del_hdr *)
 #define IPA_IOC_ADD_RT_RULE _IOWR(IPA_IOC_MAGIC, IPA_IOCTL_ADD_RT_RULE, struct ipa_ioc_add_rt_rule *)
+#define IPA_IOC_ADD_RT_RULE_V2 _IOWR(IPA_IOC_MAGIC, IPA_IOCTL_ADD_RT_RULE_V2, struct ipa_ioc_add_rt_rule_v2 *)
 #define IPA_IOC_ADD_RT_RULE_EXT _IOWR(IPA_IOC_MAGIC, IPA_IOCTL_ADD_RT_RULE_EXT, struct ipa_ioc_add_rt_rule_ext *)
+#define IPA_IOC_ADD_RT_RULE_EXT_V2 _IOWR(IPA_IOC_MAGIC, IPA_IOCTL_ADD_RT_RULE_EXT_V2, struct ipa_ioc_add_rt_rule_ext_v2 *)
 #define IPA_IOC_ADD_RT_RULE_AFTER _IOWR(IPA_IOC_MAGIC, IPA_IOCTL_ADD_RT_RULE_AFTER, struct ipa_ioc_add_rt_rule_after *)
+#define IPA_IOC_ADD_RT_RULE_AFTER_V2 _IOWR(IPA_IOC_MAGIC, IPA_IOCTL_ADD_RT_RULE_AFTER_V2, struct ipa_ioc_add_rt_rule_after_v2 *)
 #define IPA_IOC_DEL_RT_RULE _IOWR(IPA_IOC_MAGIC, IPA_IOCTL_DEL_RT_RULE, struct ipa_ioc_del_rt_rule *)
 #define IPA_IOC_ADD_FLT_RULE _IOWR(IPA_IOC_MAGIC, IPA_IOCTL_ADD_FLT_RULE, struct ipa_ioc_add_flt_rule *)
+#define IPA_IOC_ADD_FLT_RULE_V2 _IOWR(IPA_IOC_MAGIC, IPA_IOCTL_ADD_FLT_RULE_V2, struct ipa_ioc_add_flt_rule_v2 *)
 #define IPA_IOC_ADD_FLT_RULE_AFTER _IOWR(IPA_IOC_MAGIC, IPA_IOCTL_ADD_FLT_RULE_AFTER, struct ipa_ioc_add_flt_rule_after *)
+#define IPA_IOC_ADD_FLT_RULE_AFTER_V2 _IOWR(IPA_IOC_MAGIC, IPA_IOCTL_ADD_FLT_RULE_AFTER_V2, struct ipa_ioc_add_flt_rule_after_v2 *)
 #define IPA_IOC_DEL_FLT_RULE _IOWR(IPA_IOC_MAGIC, IPA_IOCTL_DEL_FLT_RULE, struct ipa_ioc_del_flt_rule *)
 #define IPA_IOC_COMMIT_HDR _IO(IPA_IOC_MAGIC, IPA_IOCTL_COMMIT_HDR)
 #define IPA_IOC_RESET_HDR _IO(IPA_IOC_MAGIC, IPA_IOCTL_RESET_HDR)
@@ -1017,7 +1173,9 @@ struct ipa_odl_modem_config {
 #define IPA_IOC_QUERY_RT_TBL_INDEX _IOWR(IPA_IOC_MAGIC, IPA_IOCTL_QUERY_RT_TBL_INDEX, struct ipa_ioc_get_rt_tbl_indx *)
 #define IPA_IOC_WRITE_QMAPID _IOWR(IPA_IOC_MAGIC, IPA_IOCTL_WRITE_QMAPID, struct ipa_ioc_write_qmapid *)
 #define IPA_IOC_MDFY_FLT_RULE _IOWR(IPA_IOC_MAGIC, IPA_IOCTL_MDFY_FLT_RULE, struct ipa_ioc_mdfy_flt_rule *)
+#define IPA_IOC_MDFY_FLT_RULE_V2 _IOWR(IPA_IOC_MAGIC, IPA_IOCTL_MDFY_FLT_RULE_V2, struct ipa_ioc_mdfy_flt_rule_v2 *)
 #define IPA_IOC_MDFY_RT_RULE _IOWR(IPA_IOC_MAGIC, IPA_IOCTL_MDFY_RT_RULE, struct ipa_ioc_mdfy_rt_rule *)
+#define IPA_IOC_MDFY_RT_RULE_V2 _IOWR(IPA_IOC_MAGIC, IPA_IOCTL_MDFY_RT_RULE_V2, struct ipa_ioc_mdfy_rt_rule_v2 *)
 #define IPA_IOC_NOTIFY_WAN_UPSTREAM_ROUTE_ADD _IOWR(IPA_IOC_MAGIC, IPA_IOCTL_NOTIFY_WAN_UPSTREAM_ROUTE_ADD, struct ipa_wan_msg *)
 #define IPA_IOC_NOTIFY_WAN_UPSTREAM_ROUTE_DEL _IOWR(IPA_IOC_MAGIC, IPA_IOCTL_NOTIFY_WAN_UPSTREAM_ROUTE_DEL, struct ipa_wan_msg *)
 #define IPA_IOC_NOTIFY_WAN_EMBMS_CONNECTED _IOWR(IPA_IOC_MAGIC, IPA_IOCTL_NOTIFY_WAN_EMBMS_CONNECTED, struct ipa_wan_msg *)
@@ -1039,6 +1197,9 @@ struct ipa_odl_modem_config {
 #define IPA_IOC_GSB_CONNECT _IOWR(IPA_IOC_MAGIC, IPA_IOCTL_GSB_CONNECT, struct ipa_ioc_gsb_info)
 #define IPA_IOC_GSB_DISCONNECT _IOWR(IPA_IOC_MAGIC, IPA_IOCTL_GSB_DISCONNECT, struct ipa_ioc_gsb_info)
 #define IPA_IOC_WIGIG_FST_SWITCH _IOWR(IPA_IOC_MAGIC, IPA_IOCTL_WIGIG_FST_SWITCH, struct ipa_ioc_wigig_fst_switch)
+#define IPA_IOC_FNR_COUNTER_ALLOC _IOWR(IPA_IOC_MAGIC, IPA_IOCTL_FNR_COUNTER_ALLOC, struct ipa_ioc_flt_rt_counter_alloc)
+#define IPA_IOC_FNR_COUNTER_DEALLOC _IOWR(IPA_IOC_MAGIC, IPA_IOCTL_FNR_COUNTER_DEALLOC, int)
+#define IPA_IOC_FNR_COUNTER_QUERY _IOWR(IPA_IOC_MAGIC, IPA_IOCTL_FNR_COUNTER_QUERY, struct ipa_ioc_flt_rt_query)
 #define TETH_BRIDGE_IOC_MAGIC 0xCE
 #define TETH_BRIDGE_IOCTL_SET_BRIDGE_MODE 0
 #define TETH_BRIDGE_IOCTL_SET_AGGR_PARAMS 1
