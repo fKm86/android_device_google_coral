@@ -48,7 +48,10 @@ struct faceauth_start_data {
   __s16 cache_flush_indexes[FACEAUTH_MAX_CACHE_FLUSH_SIZE];
   __u32 cache_flush_size;
   __u8 result;
-  __u32 lockout_event;
+  union {
+    __u32 citadel_output3;
+    __u32 lockout_event;
+  };
   __u32 angles;
   __s32 error_code;
   __u32 ab_exception_number;
@@ -123,6 +126,7 @@ struct faceauth_airbrush_state {
   __u32 command_id;
   __u64 citadel_input_data;
   __u64 feature_bypass_flags;
+  __u32 embedding_version;
 } __attribute__((packed));
 struct faceauth_debug_image {
   __u32 offset_to_image;
