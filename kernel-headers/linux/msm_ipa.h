@@ -119,6 +119,7 @@
 #define IPA_MAX_FLT_RT_CNT_INDEX (128)
 #define IPA_FLT_RT_HW_COUNTER (120)
 #define IPA_FLT_RT_SW_COUNTER (IPA_MAX_FLT_RT_CNT_INDEX - IPA_FLT_RT_HW_COUNTER)
+#define IPA_MAX_FLT_RT_CLIENTS 60
 #define IPA_FLT_TOS (1ul << 0)
 #define IPA_FLT_PROTOCOL (1ul << 1)
 #define IPA_FLT_SRC_ADDR (1ul << 2)
@@ -1082,11 +1083,16 @@ struct ipa_lan_client {
   int8_t client_idx;
   uint8_t inited;
 };
+struct ipa_lan_client_cntr_index {
+  uint8_t ul_cnt_idx;
+  uint8_t dl_cnt_idx;
+};
 struct ipa_tether_device_info {
   int32_t ul_src_pipe;
   uint8_t hdr_len;
   uint32_t num_clients;
   struct ipa_lan_client lan_client[IPA_MAX_NUM_HW_PATH_CLIENTS];
+  struct ipa_lan_client_cntr_index lan_client_indices[IPA_MAX_NUM_HW_PATH_CLIENTS];
 };
 enum ipa_vlan_ifaces {
   IPA_VLAN_IF_ETH,

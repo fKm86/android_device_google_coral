@@ -103,6 +103,9 @@ struct wan_ioctl_lan_client_info {
   int8_t client_idx;
   uint8_t hdr_len;
   enum ipa_client_type ul_src_pipe;
+#define IPA_HW_FNR_STATS
+  uint8_t ul_cnt_idx;
+  uint8_t dl_cnt_idx;
 };
 struct wan_ioctl_per_client_info {
   uint8_t mac[IPA_MAC_ADDR_SIZE];
