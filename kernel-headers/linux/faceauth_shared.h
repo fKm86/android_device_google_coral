@@ -19,11 +19,9 @@
 #ifndef __FACEAUTH_SHARED_H__
 #define __FACEAUTH_SHARED_H__
 #define DISABLE_GAZE (1ULL << 0)
-#define DISABLE_MULTI_ANGLE_ENROLLMENT (1ULL << 1)
 #define SECURE_CAMERA_DATA (1ULL << 2)
-#define ENABLE_RECTIFY_FLOOD (1ULL << 61)
-#define ENABLE_DEPTH_PIPELINE (1ULL << 62)
-#define DISABLE_SKIN_CLASSIFIER (1ULL << 63)
+#define MAX_ENROLLMENT 20
+#define MAX_NUM_USERS 4
 #define ERROR_NO_ERROR 0
 #define ERROR_GENERAL_ERROR - 1
 #define ERROR_INTERNAL_CITADEL_INVALID_ARGS - 32
@@ -63,6 +61,8 @@
 #define ERROR_IPU_TIMEOUT - 77
 #define ERROR_REJECT_USERS_FULL - 78
 #define ERROR_REJECT_PROFILES_FULL - 79
+#define ERROR_REJECT_MAX_PROFILES_PER_USER - 80
+#define ERROR_UNSUPPORTED_COMMAND - 81
 #define ERROR_FW_DRIVER_SYNC_ERROR - 84
 typedef enum _workload_status {
   WORKLOAD_STATUS_NO_STATUS = 0,
@@ -83,8 +83,9 @@ typedef enum _workload_status {
   WORKLOAD_STATUS_REJECT_TOO_FAR,
   WORKLOAD_STATUS_REJECT_USERS_FULL,
   WORKLOAD_STATUS_REJECT_PROFILES_FULL,
-  WORKLOAD_STATUS_REJECT_SKIN,
   WORKLOAD_STATUS_REJECT_INVALID_DEPTH,
+  WORKLOAD_STATUS_REJECT_SKIN,
+  WORKLOAD_STATUS_REJECT_SPOOF,
   WORKLOAD_STATUS_HARD_REJECT,
   WORKLOAD_STATUS_ERROR,
   WORKLOAD_STATUS_COUNT,
@@ -103,6 +104,11 @@ typedef enum _faceauth_input_commands {
   COMMAND_SET_FEATURE,
   COMMAND_CLR_FEATURE,
   COMMAND_RESET_LOCKOUT,
+  COMMAND_MIGRATE,
+  COMMAND_EXIT_DIRTY,
+  COMMAND_EXIT_IPU,
+  COMMAND_EXIT_TPU,
+  COMMAND_COUNT = COMMAND_EXIT_TPU,
   COMMAND_INTMAX = 0xffffffff
 } FaceAuthInputCommands;
 typedef enum _faceauth_ack_messages {
@@ -136,5 +142,11 @@ struct Face {
   int32_t pan_angle;
   int32_t tilt_angle;
   int32_t roll_angle;
+} __attribute__((packed));
+struct SerialVerificationToken {
+  uint64_t challenge;
+  uint64_t timestamp;
+  uint32_t security_level;
+  uint8_t mac[32];
 } __attribute__((packed));
 #endif
