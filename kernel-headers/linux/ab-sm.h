@@ -20,9 +20,6 @@
 #define __UAPI_AB_SM_H__
 #include <linux/ioctl.h>
 #define AB_SM_IOCTL_MAGIC 'a'
-#define AB_SM_ASYNC_NOTIFY _IOR(AB_SM_IOCTL_MAGIC, 0, int *)
-#define AB_SM_SET_STATE _IOW(AB_SM_IOCTL_MAGIC, 1, int)
-#define AB_SM_GET_STATE _IOR(AB_SM_IOCTL_MAGIC, 2, int *)
 #define AB_SM_ENTER_EL2 _IO(AB_SM_IOCTL_MAGIC, 3)
 #define AB_SM_EXIT_EL2 _IO(AB_SM_IOCTL_MAGIC, 4)
 #define AB_SM_SET_IPU_FREQUENCY _IOW(AB_SM_IOCTL_MAGIC, 5, int)
