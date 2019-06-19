@@ -36,6 +36,10 @@
 #define ERROR_INTERNAL_CITADEL_RECALIBRATE - 41
 #define ERROR_INTERNAL_CITADEL_VERSION - 42
 #define ERROR_INTERNAL_CITADEL_ERR_UNKNOWN - 43
+#define ERROR_INTERNAL_CITADEL_INVALID_CHALLENGE - 44
+#define ERROR_INTERNAL_CITADEL_INVALID_USER_ID - 45
+#define ERROR_INTERNAL_CITADEL_EMBEDDING_VERSION - 46
+#define ERROR_INTERNAL_CITADEL_EMBEDDING_DOWNGRADE - 47
 #define ERROR_CITADEL_INVALID_ARGS - 48
 #define ERROR_CITADEL_TIMEOUT - 49
 #define ERROR_CITADEL_CACHE_FULL - 50
@@ -106,9 +110,7 @@ typedef enum _faceauth_input_commands {
   COMMAND_RESET_LOCKOUT,
   COMMAND_MIGRATE,
   COMMAND_EXIT_DIRTY,
-  COMMAND_EXIT_IPU,
-  COMMAND_EXIT_TPU,
-  COMMAND_COUNT = COMMAND_EXIT_TPU,
+  COMMAND_COUNT,
   COMMAND_INTMAX = 0xffffffff
 } FaceAuthInputCommands;
 typedef enum _faceauth_ack_messages {
@@ -121,6 +123,14 @@ typedef enum _faceauth_ack_messages {
 struct Coordinate {
   int32_t x;
   int32_t y;
+} __attribute__((packed));
+struct BoundingBox {
+  struct Coordinate top_left;
+  struct Coordinate bottom_right;
+} __attribute__((packed));
+struct BoundingBoxes {
+  struct BoundingBox right_box;
+  struct BoundingBox left_box;
 } __attribute__((packed));
 enum FaceLandmarks {
   LEFT_EYE = 0,
