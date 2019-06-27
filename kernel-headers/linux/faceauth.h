@@ -35,6 +35,7 @@ struct faceauth_init_data {
 struct faceauth_start_data {
   __u8 profile_id;
   __u8 operation;
+  __u32 input_time_ms;
   __u64 image_dot_left_fd;
   __u64 image_dot_right_fd;
   __u64 image_flood_fd;
@@ -146,6 +147,7 @@ struct faceauth_airbrush_state {
   __u64 citadel_input_data;
   __u64 feature_bypass_flags;
   __u32 embedding_version;
+  __u32 input_time_ms;
   struct faceauth_model_version_list model_versions;
 } __attribute__((packed));
 struct faceauth_debug_image {
