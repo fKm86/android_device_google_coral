@@ -19,6 +19,7 @@
 #ifndef __UAPI_AB_SM_H__
 #define __UAPI_AB_SM_H__
 #include <linux/ioctl.h>
+#define AB_SM_FATAL_EL2_ERROR_FLAG 1
 #define AB_SM_IOCTL_MAGIC 'a'
 #define AB_SM_ENTER_EL2 _IO(AB_SM_IOCTL_MAGIC, 3)
 #define AB_SM_EXIT_EL2 _IO(AB_SM_IOCTL_MAGIC, 4)
@@ -45,6 +46,7 @@
 #define AB_SM_COMPUTE_READY_NOTIFY _IOR(AB_SM_IOCTL_MAGIC, 25, int *)
 #define AB_SM_SET_THROTTLE_LEVEL _IOW(AB_SM_IOCTL_MAGIC, 26, int)
 #define AB_SM_ENABLE_THERMAL _IOW(AB_SM_IOCTL_MAGIC, 27, int)
+#define AB_SM_EXIT_EL2_WITH_FLAG _IOW(AB_SM_IOCTL_MAGIC, 28, int)
 #define AB_CHIP_ID_UNKNOWN - 1
 #define AB_CHIP_ID_A0 0
 #define AB_CHIP_ID_B0 1
