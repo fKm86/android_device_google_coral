@@ -19,7 +19,9 @@
 #ifndef __UAPI_AB_SM_H__
 #define __UAPI_AB_SM_H__
 #include <linux/ioctl.h>
-#define AB_SM_FATAL_EL2_ERROR_FLAG 1
+#define AB_SM_FATAL_EL2_ERROR_FLAG 0x01
+#define AB_SM_COMPUTE_READY_MASK 0x01
+#define AB_SM_DRAM_INTACT_MASK 0x02
 #define AB_SM_IOCTL_MAGIC 'a'
 #define AB_SM_ENTER_EL2 _IO(AB_SM_IOCTL_MAGIC, 3)
 #define AB_SM_EXIT_EL2 _IO(AB_SM_IOCTL_MAGIC, 4)
