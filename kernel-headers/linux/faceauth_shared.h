@@ -110,6 +110,7 @@ typedef enum _faceauth_input_commands {
   COMMAND_RESET_LOCKOUT,
   COMMAND_MIGRATE,
   COMMAND_EXIT_DIRTY,
+  COMMAND_VERIFY_HAT,
   COMMAND_COUNT,
   COMMAND_INTMAX = 0xffffffff
 } FaceAuthInputCommands;
