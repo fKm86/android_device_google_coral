@@ -32,6 +32,7 @@ struct faceauth_init_data {
   __u64 features;
 } __attribute__((packed));
 #define FACEAUTH_MAX_CACHE_FLUSH_SIZE 20
+#define FACEAUTH_AUX_DATA_SIZE 32
 struct faceauth_start_data {
   __u8 profile_id;
   __u8 operation;
@@ -65,6 +66,7 @@ struct faceauth_start_data {
   __u32 citadel_input2;
   __u32 citadel_output1;
   __u32 citadel_output2;
+  __u32 aux_data[FACEAUTH_AUX_DATA_SIZE];
 } __attribute__((packed));
 struct faceauth_debug_data {
   __u64 buffer_fd;
