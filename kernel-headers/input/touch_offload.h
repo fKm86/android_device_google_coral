@@ -18,8 +18,6 @@
  ****************************************************************************/
 #ifndef _TOUCH_OFFLOAD_H
 #define _TOUCH_OFFLOAD_H
-#define TOUCH_OFFLOAD_MAJOR 73
-#define TOUCH_OFFLOAD_MINOR 5
 #define TOUCH_OFFLOAD_MAGIC '7'
 #define BUS_TYPE_I2C 0
 #define BUS_TYPE_SPI 1
@@ -59,6 +57,11 @@ struct TouchOffloadConfig {
   int mutual_data_types;
   int self_data_types;
 };
+struct TouchOffloadFrameHeader {
+  __u32 frame_size;
+  __u64 index;
+  __u64 timestamp;
+} __attribute__((packed));
 enum CoordStatus {
   COORD_STATUS_INACTIVE = 0x00,
   COORD_STATUS_FINGER = 0x01,
@@ -67,9 +70,31 @@ enum CoordStatus {
   COORD_STATUS_CANCEL = 0x04
 };
 #define MAX_COORDS 10
+struct TouchOffloadCoord {
+  __u16 x;
+  __u16 y;
+  enum CoordStatus status;
+  __u8 filler[32];
+} __attribute__((packed));
+struct TouchOffloadDataCoord {
+  __u32 size_bytes;
+  struct TouchOffloadCoord coords[MAX_COORDS];
+} __attribute__((packed));
 #define TOUCH_OFFLOAD_FRAME_SIZE_COORD (sizeof(struct TouchOffloadDataCoord))
+struct TouchOffloadData2d {
+  __u32 size_bytes;
+  __u16 tx_size;
+  __u16 rx_size;
+  __u8 data[1];
+} __attribute__((packed));
 #define TOUCH_OFFLOAD_DATA_SIZE_2D(rx,tx) (sizeof(__u16) * (rx) * (tx))
 #define TOUCH_OFFLOAD_FRAME_SIZE_2D(rx,tx) (sizeof(struct TouchOffloadData2d) - 1 + TOUCH_OFFLOAD_DATA_SIZE_2D((rx), (tx)))
+struct TouchOffloadData1d {
+  __u32 size_bytes;
+  __u16 tx_size;
+  __u16 rx_size;
+  __u8 data[1];
+} __attribute__((packed));
 #define TOUCH_OFFLOAD_DATA_SIZE_1D(rx,tx) (sizeof(__u16) * ((rx) + (tx)))
 #define TOUCH_OFFLOAD_FRAME_SIZE_1D(rx,tx) (sizeof(struct TouchOffloadData1d) - 1 + TOUCH_OFFLOAD_DATA_SIZE_1D((rx), (tx)))
 struct TouchOffloadIocGetCaps {
