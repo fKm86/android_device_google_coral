@@ -26,6 +26,9 @@ include device/google/coral/device.mk
 # Set Vendor SPL to match platform
 VENDOR_SECURITY_PATCH = $(PLATFORM_SECURITY_PATCH)
 
+# SafetyNet
+PRODUCT_SAFETYNET_MODEL_HACK := true
+
 # Set boot SPL
 BOOT_SECURITY_PATCH = $(PLATFORM_SECURITY_PATCH)
 
