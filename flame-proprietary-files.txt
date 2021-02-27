@@ -9,6 +9,7 @@ product/etc/CarrierSettings/att5g_us.pb
 product/etc/CarrierSettings/att_us.pb
 product/etc/CarrierSettings/bell_ca.pb
 product/etc/CarrierSettings/bluegrass_us.pb
+product/etc/CarrierSettings/boosttmo_us.pb
 product/etc/CarrierSettings/boost_us.pb
 product/etc/CarrierSettings/bouygues_fr.pb
 product/etc/CarrierSettings/btb_gb.pb
@@ -17,6 +18,7 @@ product/etc/CarrierSettings/carrier_list.pb
 product/etc/CarrierSettings/cellcom_us.pb
 product/etc/CarrierSettings/cht_tw.pb
 product/etc/CarrierSettings/congstar_de.pb
+product/etc/CarrierSettings/consumercellulartmo_us.pb
 product/etc/CarrierSettings/cricket5g_us.pb
 product/etc/CarrierSettings/cricket_us.pb
 product/etc/CarrierSettings/cspire_us.pb
@@ -52,6 +54,7 @@ product/etc/CarrierSettings/orange_fr.pb
 product/etc/CarrierSettings/others.pb
 product/etc/CarrierSettings/pcmobilebell_ca.pb
 product/etc/CarrierSettings/rakuten_jp.pb
+product/etc/CarrierSettings/redpockettmo_us.pb
 product/etc/CarrierSettings/rjio_in.pb
 product/etc/CarrierSettings/rogers_ca.pb
 product/etc/CarrierSettings/sfr_fr.pb
@@ -83,6 +86,7 @@ product/etc/CarrierSettings/three_dk.pb
 product/etc/CarrierSettings/tim_it.pb
 product/etc/CarrierSettings/tmobile_nl.pb
 product/etc/CarrierSettings/tmobile_us.pb
+product/etc/CarrierSettings/tmomvno_us.pb
 product/etc/CarrierSettings/tracfonetmo_us.pb
 product/etc/CarrierSettings/tracfoneverizon_us.pb
 product/etc/CarrierSettings/tstar_tw.pb
@@ -132,7 +136,9 @@ product/etc/res/images/charger/battery_scale.png
 product/etc/res/images/charger/main_font.png
 product/etc/res/values/charger/animation.txt
 product/etc/security/fsverity/play_store_fsi_cert.der
+product/etc/sysconfig/allowlist_com.android.omadm.service.xml
 product/etc/sysconfig/dreamliner.xml
+product/etc/sysconfig/google_build.xml
 product/etc/sysconfig/nexus.xml
 product/etc/sysconfig/nga.xml
 product/etc/sysconfig/pixel_2019_exclusive.xml
@@ -159,12 +165,13 @@ product/lib/vendor.display.color@1.0.so
 product/lib/vendor.qti.imsrtpservice@3.0.so
 -product/priv-app/AmbientSensePrebuilt/AmbientSensePrebuilt.apk;PRESIGNED
 -product/priv-app/AppDirectedSMSService/AppDirectedSMSService.apk;PRESIGNED
--product/priv-app/CarrierLocation/CarrierLocation.apk
+-product/priv-app/CarrierLocation/CarrierLocation.apk;PRESIGNED
 -product/priv-app/CarrierServices/CarrierServices.apk;PRESIGNED
 -product/priv-app/CarrierSettings/CarrierSettings.apk;PRESIGNED
 -product/priv-app/CarrierWifi/CarrierWifi.apk;PRESIGNED
 -product/priv-app/ConnMO/ConnMO.apk
 -product/priv-app/DCMO/DCMO.apk
+-product/priv-app/DevicePersonalizationPrebuiltPixel4/DevicePersonalizationPrebuiltPixel4.apk;PRESIGNED
 -product/priv-app/DiagMon/DiagMon.apk
 -product/priv-app/DMService/DMService.apk
 -product/priv-app/DreamlinerPrebuilt/DreamlinerPrebuilt.apk;PRESIGNED
@@ -189,9 +196,10 @@ product/priv-app/MyVerizonServices/lib/arm64/libmotricity.so
 -product/priv-app/Showcase/Showcase.apk
 -product/priv-app/SprintDM/SprintDM.apk;PRESIGNED
 -product/priv-app/SprintHM/SprintHM.apk;PRESIGNED
--product/priv-app/TetheringEntitlement/TetheringEntitlement.apk;PRESIGNED
+-product/priv-app/TetheringEntitlement/TetheringEntitlement.apk
 -product/priv-app/USCCDM/USCCDM.apk
 -product/priv-app/WfcActivation/WfcActivation.apk;PRESIGNED
+system/etc/permissions/privapp-permissions-google.xml
 -system_ext/app/atfwd/atfwd.apk
 -system_ext/app/com.qualcomm.qti.services.secureui/com.qualcomm.qti.services.secureui.apk
 -system_ext/app/datastatusnotification/datastatusnotification.apk
@@ -275,9 +283,10 @@ system_ext/lib64/libwfdmmsink.so
 system_ext/lib64/libwfduibcsinkinterface.so
 system_ext/lib64/libwfduibcsink.so
 system_ext/lib64/vendor.display.postproc@1.0.so
+system_ext/lib64/vendor.google.google_battery@1.0.so
 system_ext/lib64/vendor.google.wifi_ext@1.0.so
 system_ext/lib64/vendor.google.wireless_charger@1.0.so
-system_ext/lib64/vendor.google.wireless_charger@1.1.so 
+system_ext/lib64/vendor.google.wireless_charger@1.1.so
 system_ext/lib64/vendor.google.wireless_charger@1.2.so
 system_ext/lib64/vendor.qti.data.factory@2.0.so
 system_ext/lib64/vendor.qti.data.factory@2.1.so
@@ -357,6 +366,7 @@ system_ext/lib/libwfdmmsink.so
 system_ext/lib/libwfduibcsinkinterface.so
 system_ext/lib/libwfduibcsink.so
 system_ext/lib/vendor.display.postproc@1.0.so
+system_ext/lib/vendor.google.google_battery@1.0.so
 system_ext/lib/vendor.google.wifi_ext@1.0.so
 system_ext/lib/vendor.google.wireless_charger@1.0.so
 system_ext/lib/vendor.google.wireless_charger@1.1.so
@@ -399,7 +409,7 @@ system_ext/lib/vendor.qti.ims.rcsconfig@1.0.so
 system_ext/lib/vendor.qti.ims.rcsconfig@1.1.so
 system_ext/lib/vendor.qti.imsrtpservice@3.0.so
 system_ext/lib/vendor.qti.latency@2.0.so
--system_ext/priv-app/CarrierSetup/CarrierSetup.apk;PRESIGNED
+-system_ext/priv-app/CarrierSetup/CarrierSetup.apk
 -system_ext/priv-app/grilservice/grilservice.apk
 -system_ext/priv-app/HbmSVManager/HbmSVManager.apk
 -system_ext/priv-app/ims/ims.apk
