@@ -128,6 +128,7 @@ PRODUCT_PACKAGES += \
     vendor.display.config@1.9.vendor \
     vendor.display.config@1.10.vendor \
     vendor.display.config@1.11.vendor \
+    vendor.display.config@2.0.vendor \
     vendor.qti.hardware.bluetooth_audio@2.0.vendor \
     vendor.qti.hardware.capabilityconfigstore@1.0.vendor \
     vendor.qti.hardware.cryptfshw@1.0 \
