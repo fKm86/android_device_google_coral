@@ -18,14 +18,8 @@ PRODUCT_MAKEFILES := \
     $(LOCAL_DIR)/aosp_coral.mk \
     $(LOCAL_DIR)/aosp_flame.mk \
     $(LOCAL_DIR)/aosp_coral_hwasan.mk \
-    $(LOCAL_DIR)/aosp_flame_hwasan.mk \
-    $(LOCAL_DIR)/aosip_coral.mk \
-    $(LOCAL_DIR)/aosip_flame.mk
+    $(LOCAL_DIR)/aosp_flame_hwasan.mk
 
-COMMON_LUNCH_CHOICES := \
+#COMMON_LUNCH_CHOICES := \
     aosp_coral-userdebug \
-    aosp_flame-userdebug \
-    aosip_coral-user \
-    aosip_coral-userdebug \
-    aosip_flame-user \
-    aosip_flame-userdebug
+    aosp_flame-userdebug
